@@ -1,0 +1,253 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+	height: 100%;
+	@include mat.theme((color: (primary: mat.$rose-palette,
+				tertiary: mat.$red-palette,
+			),
+			typography: Roboto,
+			density: 0,
+		));
+}
+
+
+
+
+
+body {
+	// Default the application to a light color theme. This can be changed to
+	// `dark` to enable the dark color theme, or to `light dark` to defer to the
+	// user's system settings.
+
+
+	// Set a default background, font and text colors for the application using
+	// Angular Material's system-level CSS variables. Learn more about these
+	// variables at https://material.angular.dev/guide/system-variables
+
+
+	// Reset the user agent margin.
+	margin: 0;
+	height: 100%;
+
+
+}
+
+/* You can add global styles to this file, and also import other style files */
+// Base tokens
+// $primary: #3f51b5;
+// // $primary: #8c68cd;
+// $secondary: #43475d;
+
+// @import "bootstrap/scss/bootstrap";
+
+
+
+// Base tokens
+$primary: #eb0029;
+// $primary: #8c68cd;
+$secondary: #1E1E1E;
+$success: #43A047;
+$warning: #FFA000;
+
+@import "bootstrap/scss/bootstrap";
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	/* Optional: removes default margin */
+	font-family: "Roboto", sans-serif;
+	font-size: 11pt;
+}
+
+
+
+
+:root,
+[data-bs-theme="light"] {
+	color-scheme: light;
+	--bs-heading-color: #000000;
+}
+
+[data-bs-theme="dark"] {
+	color-scheme: dark;
+	--bs-heading-color: #ffffff;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+	display: inline-block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	border-bottom: solid 2px #000000;
+	padding-bottom: 2px;
+	margin-bottom: 0.5em;
+}
+
+
+h1 {
+	font-size: 24pt;
+	line-height: 1.15;
+}
+
+h2 {
+	font-size: 20pt;
+	line-height: 1.15;
+}
+
+h3 {
+	font-size: 18pt;
+	line-height: 1.15;
+}
+
+h4 {
+	font-size: 16pt;
+	line-height: 1.15;
+}
+
+h5 {
+	font-size: 14pt;
+	line-height: 1.15;
+}
+
+h6 {
+	font-size: 12pt;
+	line-height: 1.15;
+}
+
+
+
+.mat-mdc-tab-body-wrapper {
+	padding: 2rem;
+	background-color: light-dark(rgb(255 255 255 / 10%), rgb(0 0 0 / 25%));
+}
+
+.mat-mdc-tab-group {
+	// box-shadow: 10px 10px 10px #000000;
+	border: solid 1px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+	border-radius: 12px;
+}
+
+.mat-mdc-tab-body-wrapper {}
+
+.main-wrapper {
+	height: 100%;
+}
+
+
+
+
+ul,
+ol,
+dl {
+	margin-top: 0;
+	margin-bottom: 1.5rem;
+
+	li {
+		font-size: 11pt;
+		margin-bottom: 11pt;
+		color: var(--bs-heading-color);
+
+		&::marker {
+			/* Change the bullet color */
+			font-size: 1.2rem;
+			line-height: 1.5rem;
+			/* Make the marker slightly larger than the text */
+		}
+
+		p {
+			color: var(--bs-heading-color);
+			font-size: 11pt;
+			margin-bottom: 11pt;
+		}
+
+		span.b,
+		span.c1 {
+			font-weight: bold;
+		}
+
+
+	}
+
+	p.b {
+		font-size: 11pt;
+		font-weight: bold;
+		margin-bottom: .05rem;
+	}
+}
+
+
+
+ol {
+	li {
+		&::marker {
+			font-size: 1rem;
+			line-height: 1.5rem;
+		}
+	}
+}
+
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+	margin: 6px 0 0 0;
+
+
+	li {
+		// margin-block: 0.5rem;
+		margin: 0;
+	}
+}
+
+.red {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+:is(dir, menu, ol, ul) ul {
+	// list-style-type: disc;
+}
+
+:is(dir, menu, ol) ul {
+	list-style-type: disc;
+}
+
+.page-title {
+	position: relative;
+	margin-bottom: 20px;
+	display: block;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	border-bottom: solid 2px #000000;
+	padding-bottom: 8px;
+}
+
+@media print {
+	.sidebar {
+		display: none;
+	}
+
+	.main-wrapper {
+		height: auto;
+	}
+}

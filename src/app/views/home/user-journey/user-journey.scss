@@ -1,0 +1,55 @@
+.layout {
+	display: block;
+}
+
+/* TOC styles */
+.toc {
+	position: fixed;
+	top: 0;
+	max-height: 100vh;
+	overflow: auto;
+	width: 260px;
+	padding-right: 16px;
+	font-size: 13px;
+	left: 208px;
+
+	ol {
+		list-style: none;
+		padding-left: 0;
+		margin: 0;
+	}
+
+	li {
+		margin: 2px 0;
+	}
+
+	li.active>a {
+		font-weight: 600;
+		text-decoration: underline;
+	}
+
+	a {
+		cursor: pointer;
+	}
+
+	/* indent nested items */
+	ol ol {
+		padding-left: 16px;
+	}
+}
+
+/* document area */
+.doc-content {
+	flex: 1;
+	min-width: 0;
+}
+
+/* optional: make headings look like doc */
+// .doc-content h1,
+// .doc-content h2,
+// .doc-content h3,
+// .doc-content h4,
+// .doc-content h5,
+// .doc-content h6 {
+// 	margin: 8px 0 4px;
+// }

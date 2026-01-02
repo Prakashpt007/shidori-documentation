@@ -8,6 +8,9 @@ export const routes: Routes = [
 		loadComponent: () => import('./structure/main-container/main-container').then(c => c.MainContainer),
 		children: [
 			{ path: "home", loadComponent: () => import('./views/home/home').then(c => c.Home), data: { title: "Home Page" } },
+			{ path: "database", loadComponent: () => import('./views/database/database').then(c => c.Database), data: { title: "Database" } },
+
+			{ path: "user-journey", loadComponent: () => import('./views/home/user-journey/user-journey').then(c => c.UserJourney), data: { title: "User / Customer Journey" } },
 		]
 	},
 	// {

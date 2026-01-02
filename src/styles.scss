@@ -1,7 +1,447 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+	height: 100%;
+	@include mat.theme((color: (primary: mat.$rose-palette,
+				tertiary: mat.$red-palette,
+			),
+			typography: Roboto,
+			density: 0,
+		));
+}
+
+
+
+
+
+body {
+	// Default the application to a light color theme. This can be changed to
+	// `dark` to enable the dark color theme, or to `light dark` to defer to the
+	// user's system settings.
+
+
+	// Set a default background, font and text colors for the application using
+	// Angular Material's system-level CSS variables. Learn more about these
+	// variables at https://material.angular.dev/guide/system-variables
+
+
+	// Reset the user agent margin.
+	margin: 0;
+	height: 100%;
+
+
+}
+
 /* You can add global styles to this file, and also import other style files */
 // Base tokens
-$primary: #3f51b5;
+// $primary: #3f51b5;
+// // $primary: #8c68cd;
+// $secondary: #43475d;
+
+// @import "bootstrap/scss/bootstrap";
+
+
+
+// Base tokens
+$primary: #eb0029;
 // $primary: #8c68cd;
-$secondary: #43475d;
+$secondary: #1E1E1E;
+$success: #43A047;
+$warning: #FFA000;
 
 @import "bootstrap/scss/bootstrap";
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	/* Optional: removes default margin */
+	font-family: "Roboto", sans-serif;
+	font-size: 11pt;
+}
+
+
+
+
+:root,
+[data-bs-theme="light"] {
+	color-scheme: light;
+	--bs-heading-color: #000000;
+}
+
+[data-bs-theme="dark"] {
+	color-scheme: dark;
+	--bs-heading-color: #ffffff;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+	// display: inline-block;
+	line-height: 1.15;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+	&.border {
+		padding-bottom: 2px;
+		border-bottom: solid 2px var(--bs-heading-color);
+		display: inline-block;
+	}
+}
+
+
+h1 {
+	font-size: 24pt;
+	margin: 0 0 24px;
+}
+
+h2 {
+	font-size: 20pt;
+	margin: 20pt 0 10px;
+}
+
+h3 {
+	font-size: 18pt;
+	// margin: 18pt 0 9px;
+	margin: 20px 0 10px;
+}
+
+h4 {
+	font-size: 16pt;
+	// margin: 16pt 0 8px;
+	margin: 20px 0 10px;
+}
+
+h5 {
+	font-size: 14pt;
+	// margin: 14pt 0 7px;
+	margin: 20px 0 10px;
+}
+
+h6 {
+	font-size: 12pt;
+	margin: 12pt 0 6px;
+}
+
+.no-indicate {
+	list-style: none;
+}
+
+
+
+ol,
+ul {
+
+	&.ol-h2,
+	&.ol-h3,
+	&.ol-h4,
+	&.ol-h5,
+	&.ol-h6 {
+		list-style-position: outside;
+		padding-left: 2rem;
+
+		>li::marker {
+			line-height: 1.15;
+			font-weight: bold;
+		}
+	}
+
+	&.ol-h2>li::marker {
+		font-size: 20pt;
+	}
+
+	&.ol-h3>li::marker {
+		font-size: 18pt;
+	}
+
+	&.ol-h4>li::marker {
+		font-size: 16pt;
+	}
+
+	&.ol-h5>li::marker {
+		font-size: 14pt;
+	}
+
+	&.ol-h6>li::marker {
+		font-size: 12pt;
+	}
+}
+
+
+ol,
+ul {
+	li {
+		margin: 0 0 8px 0;
+		line-height: 1.5;
+
+		>p {
+			margin-bottom: 0.5rem;
+		}
+	}
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+	margin-bottom: 1rem;
+	// margin: 4px 0 8px 0;
+}
+
+ul {
+	list-style-type: disc;
+}
+
+ul ul {
+	list-style-type: circle;
+}
+
+ul ul ul {
+	list-style-type: square;
+}
+
+
+.mat-mdc-tab-body-wrapper {
+	padding: 2rem;
+	background-color: light-dark(rgb(255 255 255 / 10%), rgb(0 0 0 / 25%));
+}
+
+.mat-mdc-tab-group {
+	// box-shadow: 10px 10px 10px #000000;
+	border: solid 1px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+	border-radius: 12px;
+}
+
+.mat-mdc-tab-body-wrapper {}
+
+.main-wrapper {
+	height: 100%;
+}
+
+
+.red {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.page-title {
+	position: relative;
+	margin-top: 0;
+	margin-bottom: 20px;
+	display: block;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	border-bottom: solid 2px var(--bs-heading-color);
+	padding-bottom: 8px;
+}
+
+
+.code-block {
+	max-width: 100%;
+	margin: 0 0 2rem 0;
+}
+
+pre {
+	overflow-x: auto;
+}
+
+pre {
+	code.hljs {
+		text-wrap: auto;
+		border-radius: 10px;
+	}
+}
+
+
+.sidebar {
+	width: 150px;
+	background-color: #000000;
+	overflow: auto;
+	height: 100%;
+	// box-shadow: 5px 0 12px #000000;
+	/* Adjust if there's a header */
+	border-right: solid 1px #7c7c7c;
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		padding: 0;
+
+		li {
+			border-bottom: solid 1px #707070;
+			margin: 0;
+
+			a {
+				text-decoration: none;
+				color: #ffffff;
+				font-weight: bold;
+				padding: 10px 16px;
+				display: block;
+				opacity: 0.75;
+				margin: 2px;
+				transition: all 0.3s ease;
+
+				&.active {
+					color: var(--bs-link-color);
+					opacity: 1;
+					background-color: rgba(255, 255, 255, 0.1);
+				}
+
+				&:hover {
+					background-color: rgba(255, 255, 255, 0.1);
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+.main-wrapper {
+	scroll-behavior: smooth;
+	background-color: light-dark(#ededed, var(--bs-body-bg));
+
+	/* Works on Chrome/Edge/Safari */
+	*::-webkit-scrollbar,
+	*::-webkit-scrollbar-track {
+		width: 0;
+		height: 0.3125rem;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: var(--bs-link-color);
+		border-top: none;
+		border-bottom: none;
+		border-radius: 0.3125rem;
+	}
+}
+
+.printArea {
+	overflow: auto;
+	max-width: 210mm;
+	max-height: 297mm;
+	margin: 0 auto;
+	padding: 25.4mm !important;
+	box-sizing: border-box;
+	background-color: light-dark(#ffffff, rgb(255 255 255 / 5%));
+	// color: #000;
+
+}
+
+hr {
+	margin: 2rem 0;
+	opacity: 0.25;
+}
+
+@page {
+	// size: A4;
+	// margin: 20mm;
+	size: A4;
+	/* 8.27" × 11.69" */
+	margin: 25.4mm;
+	/* 1 inch on all sides */
+}
+
+@media print {
+
+	:root {
+		--bs-heading-color: #000000;
+	}
+
+	body {
+		font-size: 11pt;
+		margin: 0;
+		background: #fff;
+	}
+
+	.sidebar {
+		display: none;
+	}
+
+	.toc {
+		display: none;
+	}
+
+	.printArea {
+		padding: 0 !important;
+		box-shadow: none;
+		width: auto;
+		max-width: none;
+		min-height: auto;
+		max-height: none;
+		background: #fff;
+		color: #000000;
+	}
+
+	hr {
+		margin: 1rem 0;
+		opacity: 0.25;
+	}
+
+
+
+	.main-wrapper {
+		height: auto;
+		background-color: #ffffff;
+	}
+
+	.pointContainer {
+		break-inside: avoid;
+		page-break-inside: avoid;
+		overflow: visible !important;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		page-break-after: avoid;
+		page-break-inside: avoid
+	}
+
+	img {
+		page-break-inside: avoid;
+		page-break-after: avoid;
+	}
+
+	table,
+	pre {
+		page-break-inside: avoid
+	}
+
+	ul,
+	ol,
+	dl {
+		page-break-before: avoid
+	}
+
+	pre {
+		padding: 10px;
+
+		code.hljs {
+			padding: 10px;
+			text-wrap: auto;
+		}
+
+		font-size: 9pt;
+	}
+}

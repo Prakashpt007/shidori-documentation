@@ -1,12 +1,18 @@
-<div class="homeContainer">
+<div class="container-fluid p-0 main-wrapper">
 
-	<div class="innerContainer">
-		<app-header />
+	<div class="d-flex flex-nowrap" style="height: 100%;">
+		<div class="col-auto p-0">
+			<app-sidebar />
+		</div>
+		<div class="col p-4 printArea" style="overflow: auto;">
+			<div class="container-fluid p-0">
+				<app-header />
+			</div>
+			<main>
+				<router-outlet />
+			</main>
 
-		<main>
-			<router-outlet />
-		</main>
-
-		<app-footer />
+			<!-- <app-footer /> -->
+		</div>
 	</div>
 </div>
