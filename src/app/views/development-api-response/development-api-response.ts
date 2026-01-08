@@ -294,7 +294,7 @@ Response:
 
 
 
-	cloud_kitchen_location_list_api = `URL: /api/kitchen-location-list?search=pun
+	cloud_kitchen_location_list_api = `URL: /api/locations?search=pun
 Method: GET
 
 Response: 
@@ -304,14 +304,16 @@ Response:
   "message": "Success",
   "data": [
     {
-      "id": 1,
-      "name": "Pun Kitchen Express",
-      "address": "Pune - 411001"
+      "id": 1,      
+			"city": "Pune"
+			"pincode": "411030"
+			"state": "Maharashtra"
     },
     {
       "id": 2, 
-      "name": "Pune Biryani Point",
-      "address": "Pune - 411030"
+			"city": "Pune"
+			"pincode": "411030"
+			"state": "Maharashtra"
     }
   ]
 }
