@@ -1,5 +1,5 @@
 [build]
-publish = "dist/shidori-documentation"
+publish = "dist/shidori-documentation/browser"
 
 [[redirects]]
 from = "/*"
