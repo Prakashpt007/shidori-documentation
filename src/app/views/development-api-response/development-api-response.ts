@@ -305,7 +305,7 @@ Response:
   "data": [
     {    
 			"city": "Pune"
-			"pincode": "411030"
+			"pincode": "411032"
 			"state": "Maharashtra"
     },
     {
