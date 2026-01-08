@@ -47,13 +47,13 @@ export class Database {
 
 
 	user_locations = `CREATE TABLE IF NOT EXISTS user_locations (
-  id 								BIGINT PRIMARY KEY AUTO_INCREMENT,
-  user_id 					BIGINT NOT NULL UNIQUE COMMENT 'FK to users - one location per user',
-  city 							VARCHAR(100) NOT NULL COMMENT 'City name',
-  pincode 					CHAR(6) NOT NULL,
-  state 						VARCHAR(100) NOT NULL COMMENT 'State name',
+  id                BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id           BIGINT NOT NULL UNIQUE COMMENT 'FK to users - one location per user',
+  city              VARCHAR(100) NOT NULL COMMENT 'City name',
+  pincode           CHAR(6) NOT NULL,
+  state             VARCHAR(100) NOT NULL COMMENT 'State name',
   detection_method ENUM('auto','manual') NOT NULL DEFAULT 'auto' COMMENT 'Auto via browser or manual entry',
-  updated_at 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  updated_at        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   INDEX idx_city_pin (city, pincode)
