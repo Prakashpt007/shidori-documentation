@@ -19,45 +19,40 @@ export class DevelopmentApiResponse {
 
 	login_req = `URL: /api/auth/login
 Method: POST
-Request Body:
-	{
-		"email": "prakashpt007@gmail.com"
-	}`;
+Request Body : {
+	"email": "prakashpt007@gmail.com"
+}`;
 
-	login_suc_res = `Response:
-		{
-			"status": 200,
-			"success": true,
-			"message": "OTP has been sent to your registered email address.",
-			"data": {
-				"otp_requested_at": "2025-12-31T09:15:30+05:30",
-				"otp_expires_at": "2025-12-31T09:20:30+05:30",
-				"otp_validity_seconds": 300
-			}
-		}
+	login_suc_res = `Response : {
+	"status": 200,
+	"success": true,
+	"message": "OTP has been sent to your registered email address.",
+	"data": {
+		"otp_requested_at": "2025-12-31T09:15:30+05:30",
+		"otp_expires_at": "2025-12-31T09:20:30+05:30",
+		"otp_validity_seconds": 300
+	}
+}
 `;
 
-	login_failed_res_1 = `Response:
-	{
-		"status": 404,
-		"success": false,
-		"message": "No account found with this email address. Please register to continue.",
-		"data": null
-	}
+	login_failed_res_1 = `Response : {
+	"status": 404,
+	"success": false,
+	"message": "No account found with this email address. Please register to continue.",
+	"data": null
+}
 `;
 
 
 	otp_verify_req = `URL: /api/auth/verify-otp
 Method: POST
-Request Body :
-	{
-		"email": "prakashpt007@gmail.com",
-		"otp": "123456"
-	}
+Request Body : {
+	"email": "prakashpt007@gmail.com",
+	"otp": "123456"
+}
 `;
 
-	otp_verify_suc_res = `Response:
-{
+	otp_verify_suc_res = `Response : {
 	"status": 200,
 	"success": true,
 	"message": "OTP verified successfully.",
@@ -70,21 +65,19 @@ Request Body :
 
 	access_token = `{  "typ": "JWT",  "alg": "HS256" }`;
 
-	access_token_decoded = `
-	{
-		"user_id" : number,									// 123456
-		"user_name" : string,								// Prakash Patil
-		"email" : string,										// abc@gmail.com
-		"phone" : string, 									// 8421460991
-		"is_first_login" : boolean, 				// true, false
-		"has_updated_password" : boolean, 	// true, false
-		"status" : string, 									// 'active','inactive','deleted'
-	}
+	access_token_decoded = `{
+	"user_id" : number,									// 123456
+	"user_name" : string,								// Prakash Patil
+	"email" : string,										// abc@gmail.com
+	"phone" : string, 									// 8421460991
+	"is_first_login" : boolean, 				// true, false
+	"has_updated_password" : boolean, 	// true, false
+	"status" : string, 									// 'active','inactive','deleted'
+}
 `;
 
 
-	invalid_otp = `Response:
-{
+	invalid_otp = `Response : {
 	"status": 400,
 	"success": false,
 	"message": "Invalid OTP. Please try again.",
@@ -92,8 +85,7 @@ Request Body :
 }
 `;
 
-	otp_expired = `Response:
-{
+	otp_expired = `Response : {
 	"status": 410,
 	"success": false,
 	"message": "OTP has expired. Please request a new OTP.",
@@ -104,45 +96,42 @@ Request Body :
 
 	register_user_req = `URL: /api/auth/register-user
 Method: POST
-Request Body :
-	{
-		"name" : "Prakash Patil",
-		"email" : "prakashpt007@gmail.com",
-		"phone" : "8421460991",
-		"dob" : "1992-09-10"
-	}
+
+Request Body : {
+	"name" : "Prakash Patil",
+	"email" : "prakashpt007@gmail.com",
+	"phone" : "8421460991",
+	"dob" : "1992-09-10"
+}
 `;
 
-	user_register_res_suc = `Response :
-	{
-		"status": 201,
-		"success": true,
-		"message": "User registered successfully.",
-		"data": null
-	}
+	user_register_res_suc = `Response : {
+	"status": 201,
+	"success": true,
+	"message": "User registered successfully.",
+	"data": null
+}
 `;
 
-	user_already_reg_res = `Response :
-	{
-		"status": 200,
-		"success": false,
-		"message": "User already registered. Please log in using your email address.",
-		"data": null
-	}
+	user_already_reg_res = `Response : {
+	"status": 200,
+	"success": false,
+	"message": "User already registered. Please log in using your email address.",
+	"data": null
+}
 `;
 
-	validation_err_res = `Response :
-	{
-		"status": 400,
-		"success": false,
-		"message": "Validation failed.",
-		"data": {
-			"errors": {
-				"email" : "Invalid email format.",
-				"phone" : "Phone number must be 10 digits."
-			}
+	validation_err_res = `Response : {
+	"status": 400,
+	"success": false,
+	"message": "Validation failed.",
+	"data": {
+		"errors": {
+			"email" : "Invalid email format.",
+			"phone" : "Phone number must be 10 digits."
 		}
 	}
+}
 `;
 
 
@@ -154,19 +143,15 @@ Request Header : {
 	Authorization: Bearer access_token,
 }
 
-Request Body :
-	{
-		"city" : "pune",					// If user add their location.
-	}
-
-	OR
-
-	{
-		"city" : "",							// If user NOT added their location.
-	}
-
-Response: 
+Request Body : {
+	"city" : "pune",					// If user add their location.
+}
+OR
 {
+	"city" : "",							// If user NOT added their location.
+}
+
+Response: {
 	"status" : 200,
 	"success" : true,
 	"message" : "Success",
@@ -188,8 +173,8 @@ Response:
 
 	regional_cuisines_list_res = `URL: /api/regional-cuisine-list
 Method: GET
-Response: 
-{
+
+Response: {
 	"status" : 200,
 	"success" : true,
 	"message" : "Success",
@@ -210,8 +195,8 @@ Response:
 
 	international_cuisines_list_res = `URL: /api/international-cuisine-list
 Method: GET
-Response: 
-{
+
+Response: {
 	"status" : 200,
 	"success" : true,
 	"message" : "Success",
@@ -232,8 +217,8 @@ Response:
 
 	special_cuisines_list_res = `URL: /api/special-cuisine-list
 Method: GET
-Response: 
-{
+
+Response: {
 	"status" : 200,
 	"success" : true,
 	"message" : "Success",
@@ -261,19 +246,15 @@ Request Header : {
 	Authorization: Bearer access_token,
 }
 
-Request Body :
-	{
-		"city" : "pune",					// If user add their location.
-	}
-
-	OR
-
-	{
-		"city" : "",							// If user NOT added their location.
-	}
-
-Response: 
+Request Body : {
+	"city" : "pune",					// If user add their location.
+}
+OR
 {
+	"city" : "",							// If user NOT added their location.
+}
+
+Response: {
 	"status" : 200,
 	"success" : true,
 	"message" : "Success",
@@ -294,26 +275,49 @@ Response:
 
 
 
-	cloud_kitchen_location_list_api = `URL: /api/locations?search=pun
+	location_list_api = `URL: /api/locations?search=pun
 Method: GET
 
-Response: 
-{
+Response: {
   "status": 200,
   "success": true,
   "message": "Success",
   "data": [
     {    
 			"city": "Pune"
-			"pincode": "411032"
+			"pincode": 411032
 			"state": "Maharashtra"
     },
     {
 			"city": "Pune"
-			"pincode": "411030"
+			"pincode": 411030
 			"state": "Maharashtra"
     }
   ]
+}
+`;
+
+
+
+	user_location_store_api = `URL: /api/save-location
+Method: POST
+
+Request Header : {
+	Authorization: Bearer access_token,
+}
+
+Request Body: {
+	"city" : "pune",
+	"pincode" : 411032,									// string | number
+	"state" : "Maharashtra",
+	"detection_method" : "manual"				// 'auto','manual'
+}
+
+Response: {
+  "status": 200,
+  "success": true,
+  "message": "User location saved successfully",
+  "data": null
 }
 `;
 
