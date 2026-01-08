@@ -47,19 +47,17 @@ export class Database {
 
 
 	user_locations = `CREATE TABLE IF NOT EXISTS user_locations (
-  id                BIGINT PRIMARY KEY AUTO_INCREMENT,
-  user_id           BIGINT NOT NULL COMMENT 'FK to users',
-  latitude          DECIMAL(10,8) NOT NULL COMMENT 'GPS latitude',
-  longitude         DECIMAL(11,8) NOT NULL COMMENT 'GPS longitude',
-  address_string    VARCHAR(500) COMMENT 'Readable address from GPS',
-  detection_method  ENUM('auto','manual') NOT NULL DEFAULT 'auto' COMMENT 'Auto via browser or manual entry',
-  detected_at       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'When location was detected',
-  is_current        BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'Is this the current location',
- 
+  id 								BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id 					BIGINT NOT NULL UNIQUE COMMENT 'FK to users - one location per user',
+  city 							VARCHAR(100) NOT NULL COMMENT 'City name',
+  pincode 					CHAR(6) NOT NULL,
+  state 						VARCHAR(100) NOT NULL COMMENT 'State name',
+  detection_method ENUM('auto','manual') NOT NULL DEFAULT 'auto' COMMENT 'Auto via browser or manual entry',
+  updated_at 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  INDEX idx_user_id (user_id),
-  INDEX idx_is_current (is_current)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Current location tracking for nearby kitchen discovery';
+  INDEX idx_city_pin (city, pincode)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='One current location per user for kitchen discovery';
 `;
 
 
