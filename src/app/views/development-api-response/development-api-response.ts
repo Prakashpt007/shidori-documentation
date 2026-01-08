@@ -303,14 +303,12 @@ Response:
   "success": true,
   "message": "Success",
   "data": [
-    {
-      "id": 1,      
+    {    
 			"city": "Pune"
 			"pincode": "411030"
 			"state": "Maharashtra"
     },
     {
-      "id": 2, 
 			"city": "Pune"
 			"pincode": "411030"
 			"state": "Maharashtra"
