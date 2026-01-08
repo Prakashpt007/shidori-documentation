@@ -1,0 +1,8 @@
+// netlify script
+[build]
+publish = "dist/shidori-documentation"
+
+[[redirects]]
+from = "/*"
+to = "index.html"
+status = 200
