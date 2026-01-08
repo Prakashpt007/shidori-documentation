@@ -1,4 +1,3 @@
-// netlify script
 [build]
 publish = "dist/shidori-documentation"
 
