@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Highlight } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-database',
-  imports: [Highlight],
-  templateUrl: './database.html',
-  styleUrl: './database.scss',
+	selector: 'app-database',
+	imports: [Highlight],
+	templateUrl: './database.html',
+	styleUrl: './database.scss',
 })
 export class Database {
-  user_table = `CREATE TABLE IF NOT EXISTS users (
+	user_table = `CREATE TABLE IF NOT EXISTS users (
   id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
   name                    VARCHAR(150) NOT NULL COMMENT 'Customer full name',
   email                   VARCHAR(150) UNIQUE COMMENT 'Unique email; nullable for phone-only accounts',
@@ -27,7 +27,7 @@ export class Database {
 `;
 
 
-  user_addresses_table = `CREATE TABLE IF NOT EXISTS user_addresses (
+	user_addresses_table = `CREATE TABLE IF NOT EXISTS user_addresses (
   id          BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id     BIGINT NOT NULL COMMENT 'FK to users',
   name        VARCHAR(100) NOT NULL COMMENT 'Address label (Home, Office, etc.)',
@@ -46,7 +46,7 @@ export class Database {
 `;
 
 
-  user_locations = `CREATE TABLE IF NOT EXISTS user_locations (
+	user_locations = `CREATE TABLE IF NOT EXISTS user_locations (
   id                BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id           BIGINT NOT NULL COMMENT 'FK to users',
   latitude          DECIMAL(10,8) NOT NULL COMMENT 'GPS latitude',
@@ -62,7 +62,10 @@ export class Database {
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Current location tracking for nearby kitchen discovery';
 `;
 
-  cloud_kitchens = `CREATE TABLE cloud_kitchens (
+
+	// -- Cloud kitchens and related tables
+
+	cloud_kitchens = `CREATE TABLE IF NOT EXISTS cloud_kitchens (
   id                BIGINT PRIMARY KEY AUTO_INCREMENT,
   kitchen_uid       VARCHAR(20) NOT NULL UNIQUE,
   name              VARCHAR(150) NOT NULL,
@@ -79,70 +82,132 @@ export class Database {
   INDEX idx_status (status)
 );`;
 
-
-  food_classes = `CREATE TABLE food_classes (
-  id      INT PRIMARY KEY AUTO_INCREMENT,
-  name    VARCHAR(50) NOT NULL UNIQUE COMMENT 'VEG, NON_VEG, VEGAN, etc.'
+	regional_cuisines = `CREATE TABLE IF NOT EXISTS regional_cuisines (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  image VARCHAR(500) NOT NULL COMMENT 'Cuisine representative image',
+  name  VARCHAR(100) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO food_classes (name) VALUES ('VEG'), ('EGG'), ('NON_VEG'), ('VEGAN'), ('JAIN'), ('SEAFOOD');
-`;
+INSERT INTO regional_cuisines (image, name) VALUES
+('assets/images/regional/punjabi.jpg', 'Punjabi'),
+('assets/images/regional/rajasthani.jpg', 'Rajasthani'),
+('assets/images/regional/haryanvi.jpg', 'Haryanvi'),
+('assets/images/regional/uttar-pradesh.jpg', 'Uttar Pradesh'),
+('assets/images/regional/uttarakhand.jpg', 'Uttarakhand'),
+('assets/images/regional/kashmiri.jpg', 'Kashmiri'),
+('assets/images/regional/himachali.jpg', 'Himachali'),
+('assets/images/regional/maharashtrian.jpg', 'Maharashtrian'),
+('assets/images/regional/gujarati.jpg', 'Gujarati'),
+('assets/images/regional/goan.jpg', 'Goan'),
+('assets/images/regional/tamil-nadu.jpg', 'Tamil Nadu'),
+('assets/images/regional/andhra.jpg', 'Andhra'),
+('assets/images/regional/telangana.jpg', 'Telangana'),
+('assets/images/regional/karnataka.jpg', 'Karnataka'),
+('assets/images/regional/kerala.jpg', 'Kerala'),
+('assets/images/regional/bengali.jpg', 'Bengali'),
+('assets/images/regional/odia.jpg', 'Odia (Odisha)'),
+('assets/images/regional/bihari.jpg', 'Bihari'),
+('assets/images/regional/jharkhand.jpg', 'Jharkhand'),
+('assets/images/regional/madhya-pradesh.jpg', 'Madhya Pradesh'),
+('assets/images/regional/chhattisgarhi.jpg', 'Chhattisgarhi'),
+('assets/images/regional/assamese.jpg', 'Assamese'),
+('assets/images/regional/meghalaya.jpg', 'Meghalaya'),
+('assets/images/regional/nagaland.jpg', 'Nagaland'),
+('assets/images/regional/mizoram.jpg', 'Mizoram'),
+('assets/images/regional/manipur.jpg', 'Manipur'),
+('assets/images/regional/tripura.jpg', 'Tripura'),
+('assets/images/regional/arunachal.jpg', 'Arunachal Pradesh'),
+('assets/images/regional/sikkimese.jpg', 'Sikkimese');`;
 
 
-  food_types = `CREATE TABLE food_types (
-  id      INT PRIMARY KEY AUTO_INCREMENT,
-  name    VARCHAR(50) NOT NULL UNIQUE COMMENT 'SNACKS, MEAL, DESSERT, etc.'
+	international_cuisines = `CREATE TABLE IF NOT EXISTS international_cuisines (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  image VARCHAR(500) NOT NULL COMMENT 'Cuisine representative image',
+  name  VARCHAR(100) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO food_types (name) VALUES ('SNACKS'), ('MEAL'), ('BEVERAGE'), ('DESSERT'), ('SALAD'), ('SOUP'), ('APPETIZER');
-`;
+INSERT INTO international_cuisines (image, name) VALUES
+('assets/images/international/italian.jpg', 'Italian'),
+('assets/images/international/chinese.jpg', 'Chinese'),
+('assets/images/international/thai.jpg', 'Thai'),
+('assets/images/international/japanese.jpg', 'Japanese'),
+('assets/images/international/korean.jpg', 'Korean'),
+('assets/images/international/middle-eastern.jpg', 'Middle Eastern'),
+('assets/images/international/mexican.jpg', 'Mexican'),
+('assets/images/international/american.jpg', 'American'),
+('assets/images/international/french.jpg', 'French'),
+('assets/images/international/mediterranean.jpg', 'Mediterranean');`;
 
 
-  menu_categories = `CREATE TABLE menu_categories (
-  id      INT PRIMARY KEY AUTO_INCREMENT,
-  name    VARCHAR(100) NOT NULL UNIQUE COMMENT 'STARTERS, BIRYANI, SOUTH_INDIAN, etc.'
+	special_cuisines = `CREATE TABLE IF NOT EXISTS special_cuisines (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  image VARCHAR(500) NOT NULL COMMENT 'Cuisine representative image',
+  name  VARCHAR(100) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE'), ('BIRYANI'), ('ROTI_NAAN'), ('SNACKS'), ('FAST_FOOD'), ('STREET_FOOD'), ('SOUTH_INDIAN'), ('NORTH_INDIAN'), ('CHINESE'), ('CONTINENTAL'), ('ITALIAN'), ('MEXICAN'), ('MIDDLE_EASTERN'), ('SEAFOOD'), ('SALADS'), ('SOUPS'), ('DESSERTS'), ('BAKERY'), ('BEVERAGES'), ('COMBOS'), ('KIDS_MENU'), ('HEALTHY'), ('SPECIALS');
-`;
+INSERT INTO special_cuisines (image, name) VALUES
+('assets/images/special/street-food.jpg', 'Street Food'),
+('assets/images/special/biryani.jpg', 'Biryani Special'),
+('assets/images/special/vegan.jpg', 'Vegan Cuisine'),
+('assets/images/special/healthy.jpg', 'Healthy Food'),
+('assets/images/special/dessert.jpg', 'Dessert'),
+('assets/images/special/fusion.jpg', 'Fusion Cuisine');`;
 
 
-  kitchen_menu_items = `CREATE TABLE kitchen_menu_items (
-  id                BIGINT PRIMARY KEY AUTO_INCREMENT,
-  kitchen_id        BIGINT NOT NULL,
-  item_name         VARCHAR(150) NOT NULL,
-  description       TEXT COMMENT 'Menu item description like ingredients, special notes, etc.',
-  image_url         VARCHAR(500) COMMENT 'URL to the menu item image',
-  food_class_id     INT NOT NULL,
-  food_type_id      INT NOT NULL,
-  category_id       INT NOT NULL,
-  price             DECIMAL(10,2) NOT NULL,
-  is_customizable   BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Supports customization',
-  is_featured       BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Featured on home page',
-  is_international  BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'International cuisine for home page',
-  is_special        BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'Special cuisine for home page',
-  status            BOOLEAN NOT NULL DEFAULT TRUE COMMENT 'true means available',
-  created_at        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (kitchen_id) REFERENCES cloud_kitchens(id) ON DELETE CASCADE,
-  FOREIGN KEY (food_class_id) REFERENCES food_classes(id),
-  FOREIGN KEY (food_type_id) REFERENCES food_types(id),
-  FOREIGN KEY (category_id) REFERENCES menu_categories(id),
-
-  INDEX idx_kitchen (kitchen_id),
-  INDEX idx_food_class (food_class_id),
-  INDEX idx_food_type (food_type_id),
-  INDEX idx_category (category_id),
-  INDEX idx_customizable (is_customizable),
-  INDEX idx_featured (is_featured),
-  INDEX idx_international (is_international),
-  INDEX idx_special (is_special),
-  INDEX idx_status (status)
+	food_classes = `CREATE TABLE IF NOT EXISTS food_classes (
+  id   INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL UNIQUE COMMENT 'VEG, NON_VEG, VEGAN, JAIN, EGG, SEAFOOD'
 );
-`;
 
-  subscription_plans = `CREATE TABLE subscription_plans (
+INSERT INTO food_classes (name) VALUES
+('VEG'), ('NON_VEG'), ('VEGAN'), ('JAIN'), ('EGG'), ('SEAFOOD');`;
+
+
+	kitchen_menu_items = `CREATE TABLE IF NOT EXISTS kitchen_menu_items (
+  Id                      BIGINT PRIMARY KEY AUTO_INCREMENT,
+  kitchen_id              BIGINT NOT NULL,
+  item_name               VARCHAR(150) NOT NULL,
+  description             TEXT,
+  image_url               VARCHAR(500),
+  base_price              DECIMAL(10,2) NOT NULL,
+
+  food_class_id           INT NOT NULL,
+  regional_cuisine_id     INT NULL COMMENT 'FK to regional_cuisines',
+  international_cuisine_id INT NULL COMMENT 'FK to international_cuisines',
+  special_cuisine_id      INT NULL COMMENT 'FK to special_cuisines',
+
+  is_featured             BOOLEAN NOT NULL DEFAULT FALSE,
+  is_customizable         BOOLEAN NOT NULL DEFAULT FALSE,
+  
+  status                  BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  
+  FOREIGN KEY (kitchen_id)              REFERENCES cloud_kitchens(id) ON DELETE CASCADE,
+  FOREIGN KEY (food_class_id)           REFERENCES food_classes(id),
+  FOREIGN KEY (regional_cuisine_id)     REFERENCES regional_cuisines(id),
+  FOREIGN KEY (international_cuisine_id) REFERENCES international_cuisines(id),
+  FOREIGN KEY (special_cuisine_id)      REFERENCES special_cuisines(id),
+  
+  INDEX idx_kitchen(kitchen_id),
+  INDEX idx_food_class(food_class_id),
+  INDEX idx_regional(regional_cuisine_id),
+  INDEX idx_international(international_cuisine_id),
+  INDEX idx_special(special_cuisine_id),
+  INDEX idx_featured(is_featured),
+  INDEX idx_status(status)
+);`;
+
+	// -- end
+
+
+	// -- Subscription Plans (Master – BASE PRICE ONLY)
+
+	subscription_plans = `CREATE TABLE subscription_plans (
   id              BIGINT PRIMARY KEY AUTO_INCREMENT,
   plan_code       ENUM('WEEKLY','BIWEEKLY','MONTHLY','QUARTERLY') NOT NULL UNIQUE,
   plan_name       VARCHAR(50) NOT NULL,
@@ -154,7 +219,7 @@ INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE
 );
 `;
 
-  user_subscriptions = `CREATE TABLE user_subscriptions (
+	user_subscriptions = `CREATE TABLE user_subscriptions (
   id              BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id         BIGINT NOT NULL,
   plan_id         BIGINT NOT NULL,
@@ -175,7 +240,7 @@ INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE
 );
 `;
 
-  subscription_preferences = `CREATE TABLE subscription_preferences (
+	subscription_preferences = `CREATE TABLE subscription_preferences (
   id                    BIGINT PRIMARY KEY AUTO_INCREMENT,
   subscription_id       BIGINT NOT NULL,
 
@@ -217,7 +282,7 @@ INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE
 `;
 
 
-  subscription_customisation_prices = `CREATE TABLE subscription_customisation_prices (
+	subscription_customisation_prices = `CREATE TABLE subscription_customisation_prices (
   id              BIGINT PRIMARY KEY AUTO_INCREMENT,
   custom_type     ENUM(
                     'DIET',
@@ -236,7 +301,7 @@ INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE
 );
 `;
 
-  subscription_payments = `CREATE TABLE subscription_payments (
+	subscription_payments = `CREATE TABLE subscription_payments (
   id                BIGINT PRIMARY KEY AUTO_INCREMENT,
   subscription_id   BIGINT NOT NULL,
   plan_amount       DECIMAL(10,2) NOT NULL COMMENT 'Final subscription price',
@@ -256,7 +321,7 @@ INSERT INTO menu_categories (name) VALUES  ('STARTERS'), ('MAIN_COURSE'), ('RICE
 
 
 
-  subscription_drafts = `CREATE TABLE subscription_drafts (
+	subscription_drafts = `CREATE TABLE subscription_drafts (
   id              BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id         BIGINT NOT NULL,
   plan_id         BIGINT NOT NULL,

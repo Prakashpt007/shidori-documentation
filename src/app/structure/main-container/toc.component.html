@@ -1,0 +1,44 @@
+@if (headings().length) {
+<div class="toc-sidebar">
+	<nav>
+		<ol>
+
+			@for (h of headings(); track $index) {
+			<ng-container>
+				<li [class.level-1]="h.level === 1">
+					<a (click)="scrollTo(h.id)" [class.active]="activeId() === h.id" [attr.aria-label]="'Jump to ' + h.text" [title]="h.text">
+						{{h.text}}
+					</a>
+
+					@if (h.children.length) {
+					<ng-container>
+						<ng-template [ngTemplateOutlet]="recursiveTemplate" [ngTemplateOutletContext]="{item: h}"></ng-template>
+					</ng-container>
+					}
+				</li>
+			</ng-container>
+			}
+		</ol>
+	</nav>
+</div>
+}
+
+<ng-template #recursiveTemplate let-item="item">
+	<ol>
+		@for (c of item.children; track $index) {
+		<ng-container>
+			<li [class.level-1]="c.level === 1">
+				<a (click)="scrollTo(c.id)" [class.active]="activeId() === c.id" [title]="c.text">
+					{{c.text}}
+				</a>
+
+				@if (c.children.length) {
+				<ng-container>
+					<ng-template [ngTemplateOutlet]="recursiveTemplate" [ngTemplateOutletContext]="{item: c}"></ng-template>
+				</ng-container>
+				}
+			</li>
+		</ng-container>
+		}
+	</ol>
+</ng-template>

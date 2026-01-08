@@ -1,0 +1,197 @@
+<div class="doc-content">
+	<h2>Standard Response Structure</h2>
+	<p>Use this format across all APIs:</p>
+	<div class="code-block">
+		<div class="pointContainer">
+			<pre><code [highlight]="standard_res" language="json"></code></pre>
+		</div>
+	</div>
+
+	<hr />
+
+	<h2>Login API</h2>
+	<div class="code-block">
+		<div class="pointContainer">
+			<pre><code [highlight]="login_req" language="json"></code></pre>
+		</div>
+	</div>
+	<ul class="ol-h4">
+		<li>
+			<h4>OTP Sent Successfully (Registered User)</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="login_suc_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>User Not Registered</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="login_failed_res_1" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<hr />
+
+	<h2>OTP Verify API</h2>
+	<div class="code-block">
+		<div class="pointContainer">
+			<pre><code [highlight]="otp_verify_req" language="json"></code></pre>
+		</div>
+	</div>
+	<ul class="ol-h4">
+		<li>
+			<h4>OTP Verified Successfully (Proceed to Login)</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="otp_verify_suc_res" language="json"></code></pre>
+				</div>
+			</div>
+			<h5>access_token will have following data in encrypt format</h5>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="access_token" language="json"></code></pre>
+				</div>
+			</div>
+			<h5>access_token Decoded</h5>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="access_token_decoded" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<li>
+			<h4>Invalid OTP</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="invalid_otp" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>OTP Expired</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="otp_expired" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<hr />
+
+	<h2>User Registration API</h2>
+	<div class="code-block">
+		<div class="pointContainer">
+			<pre><code [highlight]="register_user_req" language="json"></code></pre>
+		</div>
+	</div>
+	<ul class="ol-h4">
+		<li>
+			<h5>User Registered Successfully</h5>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="user_register_res_suc" language="json"></code></pre>
+				</div>
+			</div>
+			<p><strong>Note:</strong> Use HTTP 201 Created instead of 200 to indicate a new resource was created.</p>
+			<p><strong>The has_updated_password</strong> field is set to <strong>false</strong>, and the <strong>is_first_login</strong> field is set to <strong>true</strong> while registering a new user.</p>
+		</li>
+
+		<hr />
+
+		<li>
+			<h5>User Already Registered</h5>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="user_already_reg_res" language="json"></code></pre>
+				</div>
+			</div>
+
+			<p><strong>Note: success: false </strong> is more semantically correct because registration did not occur.</p>
+			<p>Keep <strong>status: 200</strong> for “successful request” (API worked), but the action was not performed.</p>
+		</li>
+
+		<hr />
+
+		<li>
+			<h5>Validation Errors</h5>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="validation_err_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+
+	<hr />
+
+	<h2>Home Page API’s</h2>
+	<p><strong>If the user is logged in, then the header will be attached to every API call; otherwise, it will be optional.</strong></p>
+	<ol class="ol-h4">
+		<li>
+			<h4>Our Featured List API</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="our_featured_list_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>Regional Cuisines List API</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="regional_cuisines_list_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>International Cuisines List API</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="international_cuisines_list_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>Special Cuisines List API</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="special_cuisines_list_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<h4>Recommendation List API</h4>
+			<div class="code-block">
+				<div class="pointContainer">
+					<pre><code [highlight]="recommendation_list_res" language="json"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+	</ol>
+</div>

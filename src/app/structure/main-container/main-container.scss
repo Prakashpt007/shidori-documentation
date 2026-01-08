@@ -1,0 +1,95 @@
+ .toc-sidebar {
+ 	width: 280px;
+ 	max-height: 100dvh;
+ 	overflow-y: auto;
+ 	background: white;
+ 	border-radius: 12px;
+ 	// padding: 20px;
+ 	border: solid 20px transparent;
+ 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+ }
+
+ ol {
+ 	list-style: none;
+ 	padding-left: 0;
+ 	margin: 0;
+ }
+
+ li {
+ 	margin: 0;
+ }
+
+ a {
+ 	display: block;
+ 	// padding: 8px 12px; 
+ 	padding: 4px;
+ 	color: #000000;
+ 	text-decoration: none;
+ 	border-radius: 6px;
+ 	transition: all 0.2s;
+ 	cursor: pointer;
+ 	font-weight: 500;
+ 	opacity: 0.75;
+
+ 	/* ✅ SINGLE LINE + ELLIPSIS */
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	max-width: 100%;
+ }
+
+ a:hover,
+ a.active {
+ 	background: #f0f8ff;
+ 	color: #0066cc;
+ 	opacity: 1;
+
+ }
+
+ // ol ol { 
+ //   padding-left: 16px; 
+ // }
+
+ ol {
+ 	>li {
+ 		border-bottom: solid 1px rgba(0, 0, 0, 0.3411764706);
+ 		padding-bottom: 10px;
+ 		margin-bottom: 10px;
+ 	}
+
+ 	li {
+
+ 		ol {
+ 			li {
+ 				border-bottom: none;
+ 				padding-bottom: 0;
+ 				margin-bottom: 0;
+ 			}
+ 		}
+
+ 		&:last-of-type {
+ 			border-bottom: none;
+ 			padding-bottom: 0;
+ 			margin-bottom: 0;
+ 		}
+
+ 	}
+ }
+
+ .level-1>a {
+ 	font-weight: 600;
+ 	font-size: 2rem;
+ }
+
+ /* ✅ Nested levels get smaller padding for indentation */
+ ol ol a {
+ 	padding-left: 24px;
+ }
+
+ ol ol ol a {
+ 	padding-left: 36px;
+ }
+
+ ol ol ol ol a {
+ 	padding-left: 48px;
+ }

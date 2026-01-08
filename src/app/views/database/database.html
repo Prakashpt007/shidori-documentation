@@ -1,157 +1,198 @@
 <h2>Schema Name: shidori_db</h2>
 
-<ul>
-	<li>
-		<div class="code-block">
-			<h4>Customer registration and authentication</h4>
-			<div class="pointContainer">
-				<h5>Users Table Schema</h5>
-				<pre><code [highlight]="user_table" language="sql"></code></pre>
+
+<div class="doc-content">
+
+	<ol class="ol-h3">
+		<li>
+			<div class="code-block">
+				<h3>Customer registration and authentication</h3>
+				<div class="pointContainer">
+					<h4>Users Table Schema</h4>
+					<pre><code [highlight]="user_table" language="sql"></code></pre>
+				</div>
 			</div>
-		</div>
-	</li>
+		</li>
 
-	<li>
-		<div class="code-block">
-			<h4>Multiple delivery addresses per customer</h4>
-			<div class="pointContainer">
-				<h5>User Addresses Table Schema</h5>
-				<pre><code [highlight]="user_addresses_table" language="sql"></code></pre>
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Multiple delivery addresses per customer</h3>
+				<div class="pointContainer">
+					<h4>User Addresses Table Schema</h4>
+					<pre><code [highlight]="user_addresses_table" language="sql"></code></pre>
+				</div>
 			</div>
-		</div>
-	</li>
+		</li>
 
+		<hr />
 
-	<li>
-		<div class="code-block">
-			<h4>Current location tracking for customers</h4>
-			<div class="pointContainer">
-				<h5>User locations Table Schema</h5>
-				<pre><code [highlight]="user_locations" language="sql"></code></pre>
+		<li>
+			<div class="code-block">
+				<h3>Current location tracking for customers</h3>
+				<div class="pointContainer">
+					<h4>User locations Table Schema</h4>
+					<pre><code [highlight]="user_locations" language="sql"></code></pre>
+				</div>
 			</div>
-		</div>
-	</li>
+		</li>
 
-	<li>
-		<div class="code-block">
-			<h4>Cloud kitchens and related tables</h4>
-			<div class="pointContainer">
-				<h5>Cloud Kitchens Table Schema</h5>
-				<pre><code [highlight]="cloud_kitchens" language="sql"></code></pre>
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Cloud kitchens and related tables</h3>
+				<div class="pointContainer">
+					<h4>Cloud Kitchens Table Schema</h4>
+					<pre><code [highlight]="cloud_kitchens" language="sql"></code></pre>
+				</div>
+
+				<hr />
+
+				<div class="pointContainer">
+					<h4>Regional Cuisines Table Schema</h4>
+					<pre><code [highlight]="regional_cuisines" language="sql"></code></pre>
+				</div>
+
+				<hr />
+
+				<div class="pointContainer">
+					<h4>International Cuisines Table Schema</h4>
+					<pre><code [highlight]="international_cuisines" language="sql"></code></pre>
+				</div>
+
+				<hr />
+
+				<div class="pointContainer">
+					<h4>Special Cuisines Table Schema</h4>
+					<pre><code [highlight]="special_cuisines" language="sql"></code></pre>
+				</div>
+
+				<hr />
+
+				<div class="pointContainer">
+					<h4>Food Classes Table Schema</h4>
+					<pre><code [highlight]="food_classes" language="sql"></code></pre>
+				</div>
+
+				<hr />
+
+				<div class="code-block">
+					<!-- <h3>Cloud kitchen Menu Items</h3> -->
+					<div class="pointContainer">
+						<h4>Kitchen Menu Items Table Schema</h4>
+						<pre><code [highlight]="kitchen_menu_items" language="sql"></code></pre>
+					</div>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+
+			<h3>Home Page List</h3>
+
+			<div>
+				<p>Featured Listings → is_featured = TRUE + filter by city/region</p>
+
+				<p>International Cuisines → is_international = TRUE + filter by city/region</p>
+
+				<p>Special Cuisines → is_special = TRUE + filter by city/region</p>
+
+				<p>Regional Cuisines → all menu items in kitchens located in the user’s city/region</p>
+
+				<p>Recommendations → will be handled by a separate rating table + city/region</p>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Subscription Plans (Master – BASE PRICE ONLY)</h3>
+				<p>Static data is shown on the “Pick your subscription Plan” screen.</p>
+				<div class="pointContainer">
+					<h4>Subscription Plans Table Schema</h4>
+					<pre><code [highlight]="subscription_plans" language="sql"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>User Subscriptions (Core Instance) (FINAL PRICE STORED HERE)</h3>
+				<p>Created only after successful payment</p>
+				<div class="pointContainer">
+					<h4>User Subscriptions Table Schema</h4>
+					<pre><code [highlight]="user_subscriptions" language="sql"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Subscription Preferences (Wizard Output)</h3>
+				<p>One subscription → one preference record</p>
+				<div class="pointContainer">
+					<h4>Subscription Preferences Table Schema</h4>
+					<pre><code [highlight]="subscription_preferences" language="sql"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Subscription Customisation Prices</h3>
+				<p>Controls how much each preference changes the price</p>
+				<div class="pointContainer">
+					<h4>Subscription Customisation Prices Table Schema</h4>
+					<pre><code [highlight]="subscription_customisation_prices" language="sql"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+		<li>
+			<div class="code-block">
+				<h3>Subscription Payments (USES FINAL PRICE)</h3>
+				<p>Tracks billing & payment gateway response</p>
+				<div class="pointContainer">
+					<h4>Subscription Payments Table Schema</h4>
+					<pre><code [highlight]="subscription_payments" language="sql"></code></pre>
+				</div>
+			</div>
+		</li>
+
+		<hr />
+
+
+		<li>
+			<div class="code-block">
+				<h3>Subscription Drafts</h3>
+				<p>Subscription Context (Before Payment) <br> Wizard persistence (session-safe)</p>
+				<div class="pointContainer">
+					<h4>Subscription Drafts Table Schema</h4>
+					<pre><code [highlight]="subscription_drafts" language="sql"></code></pre>
+				</div>
 			</div>
 
-			<div class="pointContainer">
-				<h5>Food Classes Table Schema</h5>
-				<pre><code [highlight]="food_classes" language="sql"></code></pre>
-			</div>
-
-			<div class="pointContainer">
-				<h5>Food Types Table Schema</h5>
-				<pre><code [highlight]="food_types" language="sql"></code></pre>
-			</div>
-
-			<div class="pointContainer">
-				<h5>Menu Categories Table Schema</h5>
-				<pre><code [highlight]="menu_categories" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>Cloud kitchen Menu Items</h4>
-			<div class="pointContainer">
-				<h5>Kitchen Menu Items Table Schema</h5>
-				<pre><code [highlight]="kitchen_menu_items" language="sql"></code></pre>
-			</div>
-		</div>
-
-		<div>
-			<p>Featured Listings → is_featured = TRUE + filter by city/region</p>
-
-			<p>International Cuisines → is_international = TRUE + filter by city/region</p>
-
-			<p>Special Cuisines → is_special = TRUE + filter by city/region</p>
-
-			<p>Regional Cuisines → all menu items in kitchens located in the user’s city/region</p>
-
-			<p>Recommendations → will be handled by a separate rating table + city/region</p>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>Subscription Plans (Master – BASE PRICE ONLY)</h4>
-			<p>Static data is shown on the “Pick your subscription Plan” screen.</p>
-			<div class="pointContainer">
-				<h5>Subscription Plans Table Schema</h5>
-				<pre><code [highlight]="subscription_plans" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>User Subscriptions (Core Instance) (FINAL PRICE STORED HERE)</h4>
-			<p>Created only after successful payment</p>
-			<div class="pointContainer">
-				<h5>User Subscriptions Table Schema</h5>
-				<pre><code [highlight]="user_subscriptions" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>Subscription Preferences (Wizard Output)</h4>
-			<p>One subscription → one preference record</p>
-			<div class="pointContainer">
-				<h5>Subscription Preferences Table Schema</h5>
-				<pre><code [highlight]="subscription_preferences" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>Subscription Customisation Prices</h4>
-			<p>Controls how much each preference changes the price</p>
-			<div class="pointContainer">
-				<h5>Subscription Customisation Prices Table Schema</h5>
-				<pre><code [highlight]="subscription_customisation_prices" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-	<li>
-		<div class="code-block">
-			<h4>Subscription Payments (USES FINAL PRICE)</h4>
-			<p>Tracks billing & payment gateway response</p>
-			<div class="pointContainer">
-				<h5>Subscription Payments Table Schema</h5>
-				<pre><code [highlight]="subscription_payments" language="sql"></code></pre>
-			</div>
-		</div>
-	</li>
-
-
-	<li>
-		<div class="code-block">
-			<h4>Subscription Drafts</h4>
-			<p>Subscription Context (Before Payment) <br> Wizard persistence (session-safe)</p>
-			<div class="pointContainer">
-				<h5>Subscription Drafts Table Schema</h5>
-				<pre><code [highlight]="subscription_drafts" language="sql"></code></pre>
-			</div>
-		</div>
-
-		<h5>PRICE FLOW (IMPORTANT)</h5>
-		<p class="m-0">subscription_plans.base_price</p>
-		<p class="ms-3 m-0">+</p>
-		<p class="m-0">subscription_customisation_prices.price_delta</p>
-		<p class="ms-3 m-0">=</p>
-		<p class="m-0">user_subscriptions.final_price</p>
-		<p class="ms-3 m-0">→</p>
-		<p class="m-0">subscription_payments.total_amount</p>
-	</li>
-</ul>
+			<h4>PRICE FLOW (IMPORTANT)</h4>
+			<p class="m-0">subscription_plans.base_price</p>
+			<p class="ms-3 m-0">+</p>
+			<p class="m-0">subscription_customisation_prices.price_delta</p>
+			<p class="ms-3 m-0">=</p>
+			<p class="m-0">user_subscriptions.final_price</p>
+			<p class="ms-3 m-0">→</p>
+			<p class="m-0">subscription_payments.total_amount</p>
+		</li>
+	</ol>
+</div>

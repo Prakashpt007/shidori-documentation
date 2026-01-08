@@ -152,7 +152,8 @@ ul {
 	&.ol-h3,
 	&.ol-h4,
 	&.ol-h5,
-	&.ol-h6 {
+	&.ol-h6,
+	&.ol-pb {
 		list-style-position: outside;
 		padding-left: 2rem;
 
@@ -180,6 +181,10 @@ ul {
 
 	&.ol-h6>li::marker {
 		font-size: 12pt;
+	}
+
+	&.ol-pb>li::marker {
+		font-size: 11pt;
 	}
 }
 
@@ -375,7 +380,7 @@ hr {
 		display: none;
 	}
 
-	.toc {
+	.printAreaNavigation {
 		display: none;
 	}
 

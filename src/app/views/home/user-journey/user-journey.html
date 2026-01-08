@@ -1,682 +1,653 @@
-<div class="layout">
-	<nav class="toc">
-		<!-- debug -->
-		<!-- <pre>{{ headings() | json }}</pre> -->
+<div class="doc-content">
 
-		<ol>
-			<ng-container *ngFor="let h of headings()">
-				<ng-template [ngTemplateOutlet]="renderItem" [ngTemplateOutletContext]="{ item: h }"></ng-template>
-			</ng-container>
-		</ol>
+	<h5>Landing / Home Page</h5>
+	<ul>
+		<li>When the user first visits the Shidori web app, they are directed to the <span class="b">Home Page</span>.</li>
+		<li>
+			<p>The system asks the user for their <span class="b">location</span>:</p>
+			<ul>
+				<li>
+					<span class="b">Automatic detection</span> via browser/location services.
+				</li>
+				<li><span class="b">Manual entry</span> is required if automatic detection fails or the user prefers to enter a location manually.</li>
+			</ul>
+		</li>
+		<li>Based on the location, the app can <span class="b">serve personalised recommendations</span> and available menu items from nearby kitchens.</li>
+	</ul>
 
-		<ng-template #renderItem let-item="item">
-			<li [class.active]="activeId() === item.id">
-				<a href="" (click)="scrollTo(item.id); $event.preventDefault()">
-					{{ item.text }}
-				</a>
+	<hr />
 
-				<ol *ngIf=" item.children?.length">
-					<ng-container *ngFor="let c of item.children">
-						<ng-template [ngTemplateOutlet]="renderItem" [ngTemplateOutletContext]="{ item: c }"></ng-template>
-					</ng-container>
-				</ol>
-			</li>
-		</ng-template>
-	</nav>
+	<h5>Browsing & Adding Items to Cart</h5>
+	<ul>
+		<li>Users can browse menu items without logging in.</li>
+		<li>When a user tries to add an item to the cart or proceed to checkout, the system checks if the user is logged in.</li>
+		<li>
+			<p>If the user is not logged in:</p>
+			<p>They are prompted to log in or register to continue with the order.</p>
+		</li>
+	</ul>
 
-	<div class="doc-content">
+	<hr />
 
-		<h5>Landing / Home Page</h5>
-		<ul>
-			<li>When the user first visits the Shidori web app, they are directed to the <span class="b">Home Page</span>.</li>
-			<li>
-				<p>The system asks the user for their <span class="b">location</span>:</p>
-				<ul>
+	<h5>Registration / Sign-Up</h5>
+	<ul>
+		<li>
+			<p>The registration form collects the user’s basic details, including:</p>
+			<ul>
+				<li>Name</li>
+				<li>Email Address</li>
+				<li>Mobile Number</li>
+				<li>Date of Birth</li>
+			</ul>
+		</li>
+		<li>
+			<p>After entering the required details and clicking the Sign-Up button:</p>
+			<ul>
+				<li>The user receives a registration confirmation.</li>
+				<li>The user is redirected to the Login page.</li>
+
+			</ul>
+		</li>
+		<li>
+			<p>If the user is already registered:</p>
+			<ul>
+				<li>A message will be displayed: “Already registered. Please log in using your email or mobile number.”</li>
+				<li>The user will be redirected to the Login page.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<hr />
+
+	<h5>Login & OTP Verification</h5>
+	<ul>
+		<li>The user enters their registered email/mobile number and clicks Send OTP.</li>
+		<li>The Verify OTP screen appears.</li>
+		<li>An OTP is sent to the user’s registered email/mobile.</li>
+		<li>The user enters the OTP and clicks Submit.</li>
+		<li>
+			<p>The system validates the OTP:</p>
+			<ul>
+				<li>If the OTP is incorrect, an error message is displayed.</li>
+				<li>If the OTP is correct, proceed to the next step.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<hr />
+
+	<h5>First-Time Login & Onboarding</h5>
+	<ul>
+		<li>
+			<p>After OTP verification, the system checks if it is the user’s first login.</p>
+			<ul>
+				<li>If yes, redirect to the onboarding screens introducing Shidori.</li>
+				<li>Users navigate through the introduction screens using the Next button.</li>
+				<li>The last screen has a Start button.</li>
+			</ul>
+		</li>
+
+		<li>Clicking the Start button redirects the user to their Dashboard/Home page, now ready to place an order.</li>
+		<p class="red">// TODO: Create table structure for registration and login</p>
+	</ul>
+
+	<hr />
+
+
+	<h2>Home Page</h2>
+
+	<ul>
+		<li>Header</li>
+		<li>Search and Filters</li>
+		<li>Hero Section</li>
+		<li>Our Featured Section</li>
+		<li>Regional Cuisines</li>
+		<li>International Cuisines</li>
+		<li>Special Cuisines</li>
+		<li>Recommendation</li>
+		<li>Why Choose Shidori Section</li>
+		<li>Footer</li>
+	</ul>
+
+	<ol class="ol-h3">
+		<li>
+			<h3>Header</h3>
+			<p>In the header section, the following menu options will be displayed:</p>
+			<ul>
+				<li>Home</li>
+				<li>About Us</li>
+				<li>Login</li>
+				<li>Subscription Plan</li>
+			</ul>
+
+			<div class="my-3">
+				<h5>User Information (Icon & Name):</h5>
+				<p>The user icon and name will be visible only when the user is logged in.</p>
+
+				<h5>Current Location:</h5>
+				<p>The Shidori application will request access to the user’s current location to provide the best food suggestions based on nearby availability.</p>
+			</div>
+
+			<div class="my-3">
+				<h4>Filters Section</h4>
+				<p>The Filters section allows users to customise their food preferences for more accurate and personalised recommendations.</p>
+
+				<ol class="ol-h5">
 					<li>
-						<span class="b">Automatic detection</span> via browser/location services.
+						<h5>Dietary Preferences</h5>
+						<ul>
+							<li>Vegetarian</li>
+							<li>Non-Vegetarian</li>
+							<li>Vegan</li>
+							<li>Eggetarian</li>
+							<li>Other</li>
+						</ul>
+						<p>Users can select their dietary preference. If their preference is not listed, they can choose Other and enter a custom preference in the input field.</p>
+
+						<hr />
 					</li>
-					<li><span class="b">Manual entry</span> is required if automatic detection fails or the user prefers to enter a location manually.</li>
-				</ul>
-			</li>
-			<li>Based on the location, the app can <span class="b">serve personalised recommendations</span> and available menu items from nearby kitchens.</li>
-		</ul>
-
-		<hr />
-
-		<h5>Browsing & Adding Items to Cart</h5>
-		<ul>
-			<li>Users can browse menu items without logging in.</li>
-			<li>When a user tries to add an item to the cart or proceed to checkout, the system checks if the user is logged in.</li>
-			<li>
-				<p>If the user is not logged in:</p>
-				<p>They are prompted to log in or register to continue with the order.</p>
-			</li>
-		</ul>
-
-		<hr />
-
-		<h5>Registration / Sign-Up</h5>
-		<ul>
-			<li>
-				<p>The registration form collects the user’s basic details, including:</p>
-				<ul>
-					<li>Name</li>
-					<li>Email Address</li>
-					<li>Mobile Number</li>
-					<li>Date of Birth</li>
-				</ul>
-			</li>
-			<li>
-				<p>After entering the required details and clicking the Sign-Up button:</p>
-				<ul>
-					<li>The user receives a registration confirmation.</li>
-					<li>The user is redirected to the Login page.</li>
-
-				</ul>
-			</li>
-			<li>
-				<p>If the user is already registered:</p>
-				<ul>
-					<li>A message will be displayed: “Already registered. Please log in using your email or mobile number.”</li>
-					<li>The user will be redirected to the Login page.</li>
-				</ul>
-			</li>
-		</ul>
-
-		<hr />
-
-		<h5>Login & OTP Verification</h5>
-		<ul>
-			<li>The user enters their registered email/mobile number and clicks Send OTP.</li>
-			<li>The Verify OTP screen appears.</li>
-			<li>An OTP is sent to the user’s registered email/mobile.</li>
-			<li>The user enters the OTP and clicks Submit.</li>
-			<li>
-				<p>The system validates the OTP:</p>
-				<ul>
-					<li>If the OTP is incorrect, an error message is displayed.</li>
-					<li>If the OTP is correct, proceed to the next step.</li>
-				</ul>
-			</li>
-		</ul>
-
-		<hr />
-
-		<h5>First-Time Login & Onboarding</h5>
-		<ul>
-			<li>
-				<p>After OTP verification, the system checks if it is the user’s first login.</p>
-				<ul>
-					<li>If yes, redirect to the onboarding screens introducing Shidori.</li>
-					<li>Users navigate through the introduction screens using the Next button.</li>
-					<li>The last screen has a Start button.</li>
-				</ul>
-			</li>
-
-			<li>Clicking the Start button redirects the user to their Dashboard/Home page, now ready to place an order.</li>
-			<p class="red">// TODO: Create table structure for registration and login</p>
-		</ul>
-
-		<hr />
-
-
-		<h2>Home Page</h2>
-
-		<ul>
-			<li>Header</li>
-			<li>Search and Filters</li>
-			<li>Hero Section</li>
-			<li>Our Featured Section</li>
-			<li>Regional Cuisines</li>
-			<li>International Cuisines</li>
-			<li>Special Cuisines</li>
-			<li>Recommendation</li>
-			<li>Why Choose Shidori Section</li>
-			<li>Footer</li>
-		</ul>
-
-		<ol class="ol-h3">
-			<li>
-				<h3>Header</h3>
-				<p>In the header section, the following menu options will be displayed:</p>
-				<ul>
-					<li>Home</li>
-					<li>About Us</li>
-					<li>Login</li>
-					<li>Subscription Plan</li>
-				</ul>
-
-				<div class="my-3">
-					<h5>User Information (Icon & Name):</h5>
-					<p>The user icon and name will be visible only when the user is logged in.</p>
-
-					<h5>Current Location:</h5>
-					<p>The Shidori application will request access to the user’s current location to provide the best food suggestions based on nearby availability.</p>
-				</div>
-
-				<div class="my-3">
-					<h4>Filters Section</h4>
-					<p>The Filters section allows users to customise their food preferences for more accurate and personalised recommendations.</p>
-
-					<ol class="ol-h5">
-						<li>
-							<h5>Dietary Preferences</h5>
-							<ul>
-								<li>Vegetarian</li>
-								<li>Non-Vegetarian</li>
-								<li>Vegan</li>
-								<li>Eggetarian</li>
-								<li>Other</li>
-							</ul>
-							<p>Users can select their dietary preference. If their preference is not listed, they can choose Other and enter a custom preference in the input field.</p>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Cuisine Type</h5>
-							<ul>
-								<li>Andhra Pradesh Cuisine</li>
-								<li>Maharashtrian Cuisine</li>
-								<li>North Indian, South Indian, Chinese, Continental, etc.</li>
-							</ul>
-							<p>Users can select one or more cuisine types based on their taste preferences.</p>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Meal Type</h5>
-							<ul>
-								<li>Breakfast</li>
-								<li>Lunch</li>
-								<li>Dinner</li>
-								<li>Snacks</li>
-								<li>Full-Day Meal</li>
-
-							</ul>
-							<p>Users can select the desired meal type to narrow down results.</p>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Portion Size & Spice Level</h5>
-							<ul>
-								<h6>Portion Size:</h6>
-								<ul>
-									<li>Small</li>
-									<li>Medium</li>
-									<li>Large</li>
-								</ul>
-								<p>Users can select one portion size.</p>
-
-								<h6>Spice Level:</h6>
-								<ul>
-									<li>Mild Spice</li>
-									<li>Medium Spice</li>
-									<li>Extra Spicy</li>
-								</ul>
-								<p>Users can choose their preferred spice level.</p>
-							</ul>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Health & Nutrition</h5>
-							<ul>
-								<li>Low-Calorie</li>
-								<li>High-Protein</li>
-								<li>Keto / Low-Carb</li>
-								<li>Balanced Diet</li>
-								<li>Sugar-Free</li>
-								<li>Low Sodium</li>
-							</ul>
-							<p>If Low-Calorie or High-Protein is selected, the application will prompt the user to enter the required quantity or measurement. <br />For other options, users can directly select their preference.</p>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Allergens</h5>
-							<ul>
-								<li>Dairy-Free</li>
-								<li>Nut-Free</li>
-								<li>Gluten-Free</li>
-								<li>Soy-Free</li>
-								<li>Egg-Free</li>
-								<li>Other</li>
-							</ul>
-							<p>If Other is selected, users can manually enter their allergens in the input field. Otherwise, they can choose from the predefined options.</p>
-
-							<hr />
-
-						</li>
-						<li>
-							<h5>Specials</h5>
-							<ul>
-								<li>Popular Meals</li>
-								<li>Top-Rated</li>
-								<li>Chef’s Special</li>
-								<li>Seasonal / Festival Specials</li>
-								<li>Family Packs</li>
-							</ul>
-							<p>This section highlights curated and promotional meal options.</p>
-
-							<hr />
-
-						</li>
-						<li>
-							<h5>Price Range</h5>
-							<ul>
-								<li>Under ₹100</li>
-								<li>₹100 – ₹200</li>
-								<li>₹200 – ₹300</li>
-								<li>₹300+</li>
-
-							</ul>
-							<p>Users can select a price range based on their budget.</p>
-
-							<hr />
-						</li>
-						<li>
-							<h5>Ratings & Reviews</h5>
-							<ul>
-								<li>4 & Above</li>
-								<li>Top-Rated by Users</li>
-							</ul>
-							<p>Users can filter meals based on ratings and user reviews.</p>
-						</li>
-					</ol>
-				</div>
-			</li>
-
-			<hr>
-
-
-			<li>
-				<h4>Search and Filters</h4>
-				<p>Users can search for food items across the application wherever they are available. The Filters feature allows users to customise their food preferences for more accurate and personalised recommendations.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Hero Section</h4>
-				<p>In this section, users will see featured hero items displayed as a sliding banner at the top of the home screen. This section is used to highlight specific food items, special offers, or promotional dishes.</p>
-				<p>The hero section helps capture user attention immediately and showcases popular, newly launched, or recommended meals. Each slide may include high-quality images, brief descriptions, pricing details, and call-to-action buttons such as Order Now or View Details, encouraging users to explore and place orders quickly.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Our Featured Section</h4>
-				<p>Our Featured section highlights the most popular, trending, and carefully curated food items available on Shidori. These selections are chosen based on customer preferences, seasonal demand, and chef recommendations.</p>
-				<p>This section helps users quickly discover top-quality meals without spending time searching, making the ordering experience faster and more engaging.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Regional Cuisines</h4>
-				<p>The Regional Cuisines section allows users to explore authentic dishes from various regions. Each cuisine reflects traditional cooking styles, local ingredients, and regional flavours. This section is ideal for users who enjoy home-style meals or want to experience the taste of different regions in one platform.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>International Cuisines</h4>
-				<p>The International Cuisines section brings a wide variety of global flavours to the user’s plate. From Asian and European to Middle Eastern, Italian, Chinese, Mexican, Continental, and more, this section offers a diverse selection of international dishes. It caters to users looking for variety, new tastes, or familiar favourites prepared with authentic recipes, allowing them to enjoy global cuisines all in one place.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Special Cuisines</h4>
-				<p>The Special Cuisines section is designed to showcase unique and exclusive food categories. This may include diet-focused meals, festive specials, limited-time offerings, chef’s signature dishes, or themed menus. It helps users discover special meals that are not part of the regular menu, adding excitement to the overall food browsing experience.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Recommendation</h4>
-				<p>The Recommendation section provides personalised food suggestions tailored to each user. Recommendations are generated based on factors such as dietary preferences, previous orders, browsing behaviour, location, ratings, and popular trends.</p>
-				<p>This section enhances user satisfaction by helping them find relevant and appealing meals effortlessly.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Why Choose Shidori Section</h4>
-				<p>This section highlights the key benefits and value proposition of the Shidori application. It showcases quality food prepared with hygienic standards, a wide variety of cuisines, personalised recommendations, transparent and affordable pricing, and reliable delivery services. This section helps build user trust and confidence by clearly explaining why Shidori is the preferred choice for discovering and ordering food.</p>
-			</li>
-
-			<hr>
-
-			<li>
-				<h4>Footer</h4>
-				<p>In this section, the app will display links to download the application from the Google Play Store and Apple App Store. Below that, it will include relevant links such as Privacy Policy, Contact & Help Support, Company Information, About Us, and other important resources.</p>
-				<p>The footer will also feature social media handles for platforms like Facebook, Instagram, Twitter, and LinkedIn, allowing users to connect with the brand. Additional links and resources may be included as needed to provide easy access to important information and support.</p>
-			</li>
-		</ol>
-
-
-
-		<hr>
-
-		<h2>Regional Menu Page</h2>
-		<p>The Regional Menu page will showcase a list of cuisines from all Indian states, allowing users to explore traditional and popular dishes from regions such as Andhra Pradesh, Arunachal Pradesh, Assam, Bihar, Chhattisgarh, Goa, Gujarat, Haryana, Himachal Pradesh, Jharkhand, Karnataka, Kerala, Madhya Pradesh, Maharashtra, and others. Each food item will be displayed with the dish name, high-quality image, a brief description, its associated state, a wishlist button, ratings, price, and an Add to Cart button for easy ordering.​</p>
-		<p>Users will also see navigation buttons for all available states at the top of the page. Clicking on a state button (for example, Andhra Pradesh, Gujarat, Kerala, or Maharashtra) will take the user to a dedicated state-specific menu page, where the complete list of dishes from that state is displayed, making it easy to explore each region’s specialities in depth.</p>
-
-		<hr>
-
-		<h2>Recommendation Page</h2>
-		<p>The Recommendation Page provides users with personalised food suggestions based on their preferences, previous orders, browsing history, location, user rating and popular trends. This page helps users quickly discover meals they are most likely to enjoy without manually searching through menus.</p>
-		<p>Each recommended food item will be displayed with the dish name, high-quality image, a brief description, a wishlist button, price, ratings, and an Add to Cart button for easy ordering. High-quality images of the dishes will be included to enhance visual appeal and make it easier for users to select their meals.</p>
-		<p>This layout ensures that users can seamlessly explore, compare, and order personalised meal recommendations in a visually engaging and intuitive interface. By combining intelligent suggestions, ratings, and easy ordering options, the Recommendation Page enhances the overall user experience and encourages repeat engagement.</p>
-
-		<hr>
-
-		<h2>Wishlist Page</h2>
-		<p>The Wishlist Page allows users to save their favourite food items for future orders. Users can easily add dishes to their wishlist from any page, such as the Regional Menu, International Cuisines, Special Cuisines, or Recommendation Page.</p>
-		<p>Each item in the wishlist will display the dish name, high-quality image, brief description, price, ratings, and an Add to Cart button, enabling users to quickly move items from their wishlist to their order. High-quality images of the dishes will also be displayed to make browsing more visually appealing.</p>
-		<p>This page enhances user convenience by providing a personalised space to keep track of favourite meals, plan future orders, and ensure a faster and more enjoyable ordering experience.</p>
-
-		<hr>
-
-		<h2>International Menu Page</h2>
-		<p>The International Menu page will display a vertical list of featured cuisines such as Italian, Chinese, Thai, Japanese, Korean, Middle Eastern, Mexican, American, French, and Mediterranean, where each cuisine block shows a horizontal preview list of a few popular dishes and an arrow or “View All” action to explore more items from that cuisine. Each dish card in the preview will include the dish name, high-quality image, a short description, a wishlist button, ratings, price, and an Add to Cart button for quick ordering.</p>
-		<p>At the top of the page, users will see a cuisine navigation bar with buttons for each cuisine type (Italian, Chinese, Thai, Japanese, Korean, Middle Eastern, Mexican, American, French, Mediterranean, etc.). Clicking any of these buttons will navigate the user to a dedicated cuisine-specific page (for example, an Italian Menu page or Japanese Menu page) where the full list of dishes for that cuisine is displayed with filters, sorting, and complete details for each item.</p>
-
-		<hr>
-
-		<h2>Special Cuisine Menu Page</h2>
-		<p>The Special Cuisine Menu page will highlight curated food categories such as Street Food, Biryani Special, Vegan Cuisine, Healthy Food, Dessert, and Fusion Cuisine, allowing users to quickly discover dishes based on mood, lifestyle, or craving rather than geography. Each food item will be displayed with the dish name, high-quality image, a short description, category tag (for example, “Street Food” or “Vegan”), ratings, price, an Add to Cart button, and a Wishlist option so users can save their favourite items for later.</p>
-		<p>At the top of the page, users will see navigation buttons for each special cuisine category: Street Food, Biryani Special, Vegan Cuisine, Healthy Food, Dessert, and Fusion Cuisine. Clicking on any category button will take the user to a dedicated category-specific menu page that lists all dishes under that theme, making it easy to browse only street food favourites, indulgent biryanis, plant-based options, healthier choices, desserts, or creative fusion items.</p>
-
-		<hr>
-
-		<h2>Street Food Menu Page</h2>
-		<p>The Street Food Menu page will bring together a wide range of iconic Indian street snacks in one dedicated experience, focusing on quick, flavour-packed items that are ideal for snacking, sharing, and casual cravings. The menu will feature popular favourites such as pani puri, aloo tikki, samosa, kathi roll, vada pav, chole kulche, dabeli, momos, bhel puri, chicken 65, kebabs, kulfi falooda, mirchi bhaji, egg roll, dahi puri, and many more similar street-style dishes.​</p>
-		<p>Each food item will be displayed with the dish name and a short, tempting description that highlights its key textures and flavours, such as crispy, spicy, tangy, or creamy, helping users quickly understand what they are ordering. The item card will also display ratings, name, price, high-quality image, an “Add to Cart” button for instant ordering, and a Wishlist option, allowing users to mark and revisit their favourite street food items whenever they like. All street snacks will be grouped under a single “Street Food” category, providing a simple and focused browsing experience.</p>
-
-		<hr>
-
-		<h2>Biryani Special Menu Page</h2>
-		<p>The Biryani Special Menu page will bring together a wide range of biryani-focused dishes in one dedicated space, highlighting different proteins, spice levels, and regional styles to satisfy serious biryani cravings. The menu will feature signature varieties such as Hyderabadi biryani, Lucknawi (Awadhi) biryani, Kolkata biryani, Malabar biryani, Ambur biryani, Dindigul biryani, Sindhi biryani, Bombay biryani, Kashmiri biryani, Tehari biryani, as well as protein-based options like paneer biryani, vegetable biryani, egg biryani, prawn biryani, fish biryani, and more.</p>
-		<p>Each food item will be displayed with the biryani name and a rich, high-quality image, tempting description that highlights the quality of the rice, the cooking method (such as slow-cooked dum), aroma, key ingredients, and dedicated aroma and spice level tags in the description (for example, “fragrant & mild”, “aromatic & medium spicy”, or “bold & spicy”), so users clearly understand the flavour profile before ordering. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite biryanis and easily reorder them later, keeping everything neatly grouped under the “Biryani Special” category.</p>
-
-
-		<hr>
-
-		<h2>Vegan Cuisine Menu Page</h2>
-		<p>The Vegan Cuisine Menu page will bring together a wide range of 100% plant-based dishes in one dedicated space, focusing on flavourful meals made without any meat or eggs, so users can explore satisfying vegan options with confidence. The menu will feature items such as vegan biryani bowls, jackfruit tacos, vegan sushi, chickpea and lentil soups, vegan pizzas, stuffed bell peppers, vegan pasta primavera, falafel wraps, vegan burgers, vegetable pulao, tinda masala, rajma masala, vegetable korma, dal tadka, and many more vegan-friendly dishes.</p>
-		<p>Each food item will be displayed with the dish name and a rich, high-quality image, tempting description that highlights the key vegetables, plant proteins, grains, textures, and flavours, clearly indicating that every option is completely vegan. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite vegan dishes and easily reorder them later, keeping everything neatly grouped under the “Vegan Cuisine” category.</p>
-
-
-		<hr>
-
-		<h2>Healthy Food Menu Page</h2>
-		<p>The Healthy Food Menu page will bring together a variety of nutrient-dense, lighter meals in one dedicated space, focusing on dishes that balance lean proteins, healthy fats, whole grains, and fresh vegetables for everyday wellness-focused eating. The menu will feature options such as quinoa salad, grilled salmon, oats porridge, vegetable stir-fry, Greek salad, brown rice and lentils, avocado toast, chia seed pudding, roasted sweet potatoes, green smoothies, mixed bean salad, steamed broccoli, baked falafel, zoodle pasta, cabbage soup, and many more health-conscious dishes.</p>
-		<p>Each food item will be displayed with the dish name and a rich, high-quality image, along with a clear, tempting description that highlights key ingredients, nutritional benefits (for example, high protein, rich in fibre, or whole-grain based), and lighter cooking methods such as grilling, baking, steaming, or minimal-oil sautéing. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite healthy dishes and easily reorder them later, keeping everything neatly grouped under the “Healthy Food” category.</p>
-
-		<hr>
-
-		<h2>Dessert Menu Page</h2>
-		<p>The Dessert Menu page will bring together a wide range of indulgent Indian and international sweets in one dedicated space, offering guests the perfect sweet ending to their meal. It will feature favourites such as chocolate brownies, cheesecakes, gulab jamun, rasgulla, tiramisu, ice cream sundaes, mousses, apple pies, macarons, donuts, kheer, baklava, cupcakes, panna cotta, ladoos, and many more decadent desserts.</p>
-		<p>Each dessert item will be displayed with the dessert name and a rich, high-quality image, along with a tempting description that highlights textures and flavours such as warm and fudgy, creamy and tangy, syrup-soaked, crunchy, or nutty, helping users quickly find the treat that suits their mood. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite desserts and easily reorder them later, keeping everything neatly grouped under the “Dessert” category.</p>
-
-		<hr>
-
-		<h2>Fusion Cuisine Menu Page</h2>
-		<p>The Fusion Cuisine Menu page will bring together creative cross-cultural dishes in one dedicated space, combining flavours, ingredients, and techniques from different cuisines to offer bold, unexpected taste experiences. The menu will feature playful combinations such as tandoori pizza, butter chicken pasta, sushi burritos, paneer tacos, noodle samosas, kimchi quesadillas, Manchurian pizza, masala mac and cheese, chilli garlic momos, biryani arancini, idli burgers, wasabi hummus, paneer sushi rolls, falafel tacos, Thai curry pasta, and many more innovative fusion creations.​</p>
-		<p>Each food item will be displayed with the dish name and a rich, high-quality image, along with a tempting description that clearly explains the fusion elements, highlighting which cuisines are being blended (for example, “Indian × Italian” or “Japanese × Mexican”) and what key flavours and textures to expect. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite fusion dishes and easily reorder them later, keeping everything neatly grouped under the “Fusion Cuisine” category.</p>
-
-		<hr>
-
-		<h2>Menu Description Page</h2>
-		<p>The Menu Description page is a dedicated detail view for a single dish, giving users everything they need to understand the item before adding it to their order. At the top, a large, high‑quality food image visually showcases the dish, followed by the dish name displayed prominently with its overall star rating beside it to indicate popularity and quality at a glance. A rich text description explains the flavour profile, texture, cooking style, and ideal pairings so users know exactly what kind of experience to expect from the dish.</p>
-		<p>Just below the description, the page provides simple ordering controls: a quantity selector with minus and plus buttons to choose how many items the user wants, and a bold ADD button to place that selected quantity into the cart or place a single item into the cart. This allows users to focus on a single dish, adjust how much they want, and add it directly without leaving the page. This page keeps all key purchase information—image, name, description, rating, quantity, and add action—grouped in one clear block.</p>
-		<p>Further down, the page highlights social proof and feedback. A rating summary section visualises how many customers have given 5, 4, 3, 2, or 1 stars using horizontal bars, along with a central average rating value and stars, so users can quickly assess overall satisfaction. Below this, a grid of customer review cards showcases real experiences: each card includes a profile photo, star rating, short review comment, and reviewer name. Together, these elements turn the Menu Description page into a focused, trustworthy detail screen where users can explore, evaluate, and confidently decide whether to add the dish to their order.</p>
-
-
-
-		<hr>
-
-		<h2>Add to Cart Page</h2>
-		<p>The Add to Cart (Shopping Bag) page is the main review and confirmation step before checkout. It lets users see all items they’ve selected, adjust quantities, apply coupons, choose the delivery address, optionally add recommended items or a donation, and then proceed to payment in a single, focused flow.</p>
-		<div class="ms-4">
-
-			<h4>Page purpose and layout</h4>
-			<ul>
-				<li>
-					<p>The page is divided into three vertical zones:</p>
-					<ol>
-						<li>Cart Items Area on the left (all dishes in the cart).</li>
-						<li>Order Summary Sidebar on the right (coupon, address, totals, checkout).</li>
-						<li>Donation & Policy Section at the bottom (optional donation and detailed cancellation policy).​</li>
-					</ol>
-
-				</li>
-				<li>The top of the page shows the Shopping Bag title, the item count, and a Clear Cart button to reset the cart in one action.​</li>
-			</ul>
-
-			<h4>Cart items workflow</h4>
-			<ul>
-				<li>Each cart line shows the dish image, name, description, star rating, unit price, quantity control, and total, so users can understand and manage every item easily.​</li>
-				<li>The initial quantity comes from wherever the user last added/updated that item (menu page or detail page).</li>
-				<li>
-					<p>Users can:</p>
-					<ul>
-						<li>Increase quantity with the plus button, which updates the line total and overall cart total in real time.</li>
-						<li>Decrease quantity with the minus button; if the quantity reaches zero, the item is removed from the cart.</li>
-					</ul>
-				</li>
-				<li>Any change in quantity immediately updates the cart item count and the Cart Total / Total figures in the sidebar, keeping pricing transparent.​</li>
-			</ul>
-
-
-			<h4>Recommendations / Add more items</h4>
-			<ul>
-				<li>Below the main list cart items, a strip shows recommended dishes (e.g., Butter Naan, another curry), each with an image, name, short description, rating, price, and an “+ Add” button.</li>
-				<li>Clicking “+ Add” adds that item to the cart with a default quantity of 1, updates totals, and visually confirms the addition (for example, button state change or toast), allowing quick upsell without leaving the cart.​</li>
-			</ul>
-
-
-			<h4>Coupon, address and totals workflow</h4>
-			<ul>
-				<li>
-					<p>In the right sidebar, the Coupon Code panel lets users enter a code and tap Apply.</p>
-					<ul>
-						<li>On valid codes, the Discount value and Total are recalculated and updated; an error state appears for invalid/expired codes.​</li>
-					</ul>
-				</li>
-
-				<li>
-					<p>The Deliver block shows the currently selected address (name, address, phone) and a navigation arrow.</p>
-					<ul>
-						<li>Tapping it opens the address management flow, where users can change or add addresses; when they return, the selected address is reflected here.​</li>
-					</ul>
-				</li>
-
-
-				<li>
-					<p>The Cart Total panel displays a breakdown:</p>
-					<ul>
-						<li>Cart total (sum of item line totals).</li>
-						<li>Delivery charge.</li>
-						<li>Discount (from coupons/offers).</li>
-						<li>Total (final payable amount).</li>
-					</ul>
-				</li>
-
-				<li>The Checkout button is the primary call‑to‑action, moving the user from this review page to the checkout/payment flow once they are satisfied with items, address, and totals.​</li>
-			</ul>
-
-		</div>
-		<p>This information helps users feel secure and informed about their purchase, making it easier for them to complete the order without hesitation.</p>
-
-		<hr />
-
-
-		<h2>Coupon Page & Redeem Pop-up</h2>
-		<p>The Coupon List page displays all available offers in a clean, card-based grid, allowing users to quickly browse and select the best deal for their order. Each coupon appears as a colourful card with the coupon title at the top (for example, WELCOME50, FREEMEAL, WEEKLY20), the internal code repeated in the lower section, a one-line benefit description (such as “Get 50% off on your first order” or “Free delivery on orders above ₹299”), and an expiry date so users know how long the offer is valid. A small “Text” label in the corner indicates the type of coupon, maintaining a consistent visual format across all cards.</p>
-		<p>By scrolling the grid, users can see different categories of offers like first-order discounts, referral rewards, zero-fee delivery, healthy-meal promos, festival specials, and student or loyalty benefits, each distinguished by its own background colour. This makes it easy to visually scan and pick an offer that matches their situation (new user, subscriber, student, etc.). When a user taps a card, the system opens a detailed coupon pop-up overlay focused on that single offer and ready for redemption.</p>
-
-		<div class="ms-4">
-			<h4>Coupon Detail Pop-up</h4>
-			<p>The Coupon Detail Pop-up is an overlay that appears centred on top of the coupon list when a coupon is selected, giving a focused, full-size view of one specific offer. At the top, it shows the partner or brand logo (for example, GPay) and a short headline line describing the benefit in natural language, such as “20% cashback on all rides globally via Standard Chartered credit card,” so users immediately understand what they get. Below a dotted separator, the pop-up highlights the Coupon Code in large text (for example, STANDARD 20), making it easy to read or copy, and provides a prominent REDEEM NOW button as the primary call-to-action for applying or using the offer.</p>
-			<p>At the bottom of the card, a validity line (for example, “Valid till 30th May 2026”) clearly communicates the end date so users know whether the coupon is still usable. Overall, the combination of the Coupon List page and Coupon Detail Pop-up gives users a simple flow: browse all deals, tap one to see full details, then copy or redeem the code directly from the highlighted pop-up.</p>
-		</div>
-
-
-		<hr />
-
-		<h2>Checkout Page</h2>
-		<p>Checkout page is the final confirmation and payment step after the Shopping Bag, where users provide their shipping details, enter payment information, review the final order summary, optionally add a donation, and read key policy notes before placing the order. The layout is split into a large form area on the left for address, payment methods/card details and a compact order summary column on the right, with donation and policy information displayed clearly at the bottom, so everything needed to complete the purchase is visible on a single screen.</p>
-		<div class="ms-4">
-			<h4>Page purpose and layout</h4>
-			<p>The page shows a Back button link so users can return to the previous step if they want to change items in the cart, while a short note above the form reminds them to fill in details carefully to avoid delays. The main left section contains the Shipping/Delivery Address and Payment Information area, including card type/brand indicators, name on card, card number, expiration date, and CVV inputs, followed by the primary button (Apply/Pay) for submitting payment details. On the right, the Order Summary card lists each item (with quantity, dish name, and line price), then shows Delivery, Discount, Total, Tax, and final Order Total, along with a highlighted savings message that tells the user how much they are saving on this order</p>
-
-			<h4>Coupon, notes, Cancellation Policy and confirmation areas</h4>
-			<p>A Coupon Code field with an Apply button lets users enter a discount code directly from the checkout page, while a Description (Optional) text box allows them to add special delivery notes or instructions for the cloud kitchen or courier. Below the donation banner encourages users to “Donate to feeding India” with a fixed micro-donation amount (e.g., Rs 4) and an Add to Cart button, so they can quickly include a charitable contribution as part of the same transaction. By clicking on the Add to cart button, the system will update this in the order summary.</p>
-			<p>The Cancellation Policy section explains how and when orders or subscriptions can be cancelled and how long refunds may take to process, and a final note at the bottom clarifies that prices are inclusive of taxes, meals are freshly prepared and delivered per schedule, and support contact details are available for any billing or payment issues.</p>
-		</div>
-
-		<hr />
-
-		<h2>Payment Page</h2>
-		<p class="red">// TODO: </p>
-
-		<hr />
-
-		<h2>Order Tracking Page</h2>
-		<p>The Tracking Order page shows the live status of a single order after checkout and payment are completed, helping users understand what stage their order is in, when it is expected to arrive, and who is delivering it. At the top, a compact summary bar displays key details such as order placement time, total amount, expected delivery time, and the order number so users can quickly confirm they are viewing the correct order. Just below, a clear status label (for example, “Order Status: Order Placed”) and an estimated delivery timeline reinforce the current state and timing of the order.</p>
-		<div class="ms-4">
-			<h4>Order status timeline and map</h4>
-			<p>A horizontal progress tracker visually represents the journey of the order across milestones like “Preparing order”, “At Pickup Point”, “Order Picked”, “On the way”, and “Delivered”, with completed steps highlighted and upcoming steps greyed out. This lets users instantly see how far along their order is and what will happen next. Below this, a confirmation block with a check icon and a map view(for visual tracking) communicates that the order has been accepted and is being prepared, along with a short confirmation message and a note that a confirmation email has been sent.</p>
-
-			<h4>Delivery partner and customer information</h4>
-			<p>A dedicated section introduces the delivery partner by name (for example, “Rahul is your Delivery Partner”) and includes a brief helper text along with a call icon so users understand they can tap to contact the rider for quick updates. The Customer Information panel consolidates customer details, billing address, and payment method (such as “Credit Card ending with 4242”), reassuring users that their order is tied to the correct profile, address, and payment source.</p>
-
-			<h4>Order summary panel</h4>
-			<p>On the right side, an Order Summary card recaps the items included in the order. It shows a thumbnail of the main dish (e.g., Baklava) with its description and price, followed by a list of all ordered items with quantities and line prices. And a cost breakdown presents Delivery, Discount, Total, Tax, and the final Order Total so users can verify that the charges match what they saw at checkout.</p>
-
-			<h4>Overall experience</h4>
-			<p>The status header, progress timeline, confirmation map, delivery partner info, customer details, and order summary make the tracking Order page a single place where users can see their confirmed order details, how far along it is, and know whom to contact if they need help, giving them clarity and reassurance while they wait for their delivery.</p>
-		</div>
-
-		<hr />
-
-		<h2>Order Delivery Page</h2>
-		<p>The Order Delivered page is the final state of the order-tracking flow, confirming that the user’s order has successfully reached its destination and capturing all important details in a receipt-style layout. At the top, the summary bar still shows when the order was placed, the total amount, promised delivery time, and the order number so users can easily cross‑check against earlier communication or support queries. The status label now reads “Order Status: Order Delivered”, and the horizontal timeline shows all stages—Preparing order, At Pickup Point, Order Picked, On the way, Delivered—as fully completed, giving a clear visual end to the journey.</p>
-		<div class="ms-4">
-			<h4>Delivery partner and confirmation section</h4>
-			<p>Below the tracker, a section reiterates “Rahul is your Delivery Partner” (or the relevant name) with helper text explaining that the user can contact the partner if there is any issue with the delivered order, accompanied by a call icon for quick access. Further down, a confirmation panel labelled “Your Order is Delivered” reinforces that the order is complete. This panel includes a short explanatory message that the order has been accepted and delivered, that a confirmation email has been sent, and that users can return to this page for any post‑delivery references, closing the loop </p>
-
-			<h4>Customer details and help</h4>
-			<p>Under the confirmation area, the Customer Information card summarises key identity and billing data used for this order: customer name, delivery/billing address, and the payment method. This acts as a final reference for the user and for support in case of disputes or questions. At the very bottom of the page, a “Need Help? Contact Us” link provides a direct path to customer support, ensuring that users know exactly where to go if something about the delivered order is incorrect or missing.</p>
-
-			<h4>Order summary and charges</h4>
-			<p>The Order Summary card mirrors what the user saw at checkout, but is now marked as delivered. It highlights one of the ordered dishes with an image, name, short description, and its price, followed by a full list of all items, each with quantity and line price. Below the list, a breakdown shows Delivery, Discount, intermediate Total, Tax, and the final Order Total, with a large “DELIVERED” stamp graphic overlaid on the summary area to visually signal that no further changes can be made to this order. This clear breakdown lets users verify that the final charge matches what they expected at the time of payment.</p>
-
-			<h4>Overall experience</h4>
-			<p>With its completed status bar, delivery‑partner reminder, delivery confirmation message, compact customer information, help link, and sealed order summary, the Order Delivered page functions both as a reassurance screen and as a permanent digital receipt. Users can revisit it from their order history to remember what they ordered, how much they paid, when it was delivered, and whom to contact if they ever need post‑delivery assistance.</p>
-		</div>
-
-		<hr />
-
-		<h2>Review pop-up (Post-Delivery Rating)</h2>
-		<p>The Review Pop-up appears as a centred overlay after an order has been marked delivered, inviting users to rate their experience while the delivery is still fresh in mind. At the top, a large green check icon and bold “Thank You!” message confirm that the food was delivered successfully, followed by a short line such as “You got your food delivered at Shidori” to clearly link the feedback request to the just-completed order. The pop-up asks two questions: “How would you rate your experience at Shidori?” and “How would you rate our Delivery Partner Shidori?”, each paired with a 5‑star rating control so users can separately evaluate the overall Shidori experience and the delivery partner’s performance.</p>
-		<p>Under the star ratings, a “Write your comment” text box lets users leave optional written feedback about food quality, packaging, punctuality, or delivery behaviour. At the bottom, a prominent Submit button sends the selected star ratings and comment, and a closing line explains that “Your ratings will help other privileged members in discovering better places,” reinforcing that their feedback benefits the whole community.</p>
-
-
-		<hr />
-
-		<h2>User Profile Page</h2>
-		<div class="ms-4">
-			<h4>Profile Page – overall description</h4>
-			<ul>
-				<li>The Profile page is the central place where users can view and manage their personal account information, preferences, and app settings.</li>
-				<li>At the top, a Wallet Money button gives quick access to the user’s in‑app wallet so they can view their current balance or add money for future orders.</li>
-				<li>A notification icon opens the notifications view, where users can see recent alerts related to orders, offers, and account updates.</li>
-				<li>On the right side of the header, the profile thumbnail shows the user’s avatar; tapping it allows them to change their profile photo.​</li>
-				<li>Just below the header, a Back link lets users return to the previous screen, typically the home or main menu.​</li>
-				<li>
-					<p>The main body of the page is split into two columns. On the left, a vertical navigation menu lists all profile-related sections:​</p>
-					<ul>
-						<li>Account Settings</li>
-						<li>Order History</li>
-						<li>Addresses</li>
-						<li>Help Center</li>
-						<li>Promocodes & Offerings</li>
-						<li>Subscription</li>
-						<li>Invite Friends</li>
-						<li>Privacy Policy</li>
-						<li>Logout</li>
-						<li>Delete Account</li>
-					</ul>
-				</li>
-				<li>On the right, a content area displays the details and controls for whichever menu item is currently selected.</li>
-				<li>When Account Settings is active, this panel shows the user’s basic profile information and notification preferences.​</li>
-			</ul>
-			<ol class="ol-h4">
-				<li>
-					<h4>Account Settings</h4>
-					<ul>
-						<li>When Account Settings is selected in the left menu, the right panel becomes the user’s personal profile editor.​</li>
-						<li>At the top of this panel, the user’s profile picture, full name, and email address are shown in a compact header so core identity information is always visible.​</li>
-						<li>The profile picture can be updated by tapping or clicking on it and selecting a new image from the device.​</li>
-						<li>Below this header, there are editable fields for Name, Email, Birthday, and Phone No. so users can keep their core account information up to date.​</li>
-						<li>Any changes saved here are used across orders, communications, and receipts.​</li>
-						<li>Inputs such as Birthday and Phone No. should use clear, specific formats (for example, a date picker and formatted phone field) to reduce errors.​</li>
-						<li>Further down, a Notifications block lets users manage how they receive updates from the app.​ A short helper line, such as “View and change your notification settings”, explains the purpose of this section.​</li>
-					</ul>
-				</li>
-
-				<li>
-					<h4>Order History</h4>
-					<ul>
-						<li>The Order History section is accessed from the left-side Profile menu and shows a list or grid of all orders that have already been delivered to the user.​</li>
-						<li>Each entry focuses on completed orders, so users can quickly review what they have previously ordered and how much they paid.​</li>
-					</ul>
-					<div class="ms-4">
-						<h5>Order cards in Order History</h5>
+					<li>
+						<h5>Cuisine Type</h5>
 						<ul>
-							<li>Every order is represented as a card containing key details such as Order ID, delivery date and time, main items, total quantity, and total price.​</li>
-							<li>Visual hierarchy (order number at the top, items and prices in the middle, total at the bottom) helps users scan multiple cards easily.​</li>
-							<li>Only orders with a Delivered or Completed status appear here, ensuring the list is clearly about past, fulfilled orders.​</li>
+							<li>Andhra Pradesh Cuisine</li>
+							<li>Maharashtrian Cuisine</li>
+							<li>North Indian, South Indian, Chinese, Continental, etc.</li>
 						</ul>
+						<p>Users can select one or more cuisine types based on their taste preferences.</p>
 
-						<h5>Navigation to Item Delivered page</h5>
+						<hr />
+					</li>
+					<li>
+						<h5>Meal Type</h5>
 						<ul>
-							<li>When the user clicks or taps any order card in Order History, the app opens the Item Delivered page for that specific order.​</li>
-							<li>The system passes the selected order’s ID to the Item Delivered view so that all details shown there (items, prices, and status) match the chosen card.​</li>
-						</ul>
-
-						<h5>Item Delivered page and rating entry</h5>
-						<ul>
-							<li>The Item Delivered page shows detailed information for that order: ordered items with images, quantities, individual prices, total amount, and a clear “Delivered” status.​</li>
-							<li>If the user has not yet rated this order, the page displays a prominent call‑to‑action (for example, “Rate this Order” or a star‑rating placeholder) that leads to the Rating page.​</li>
-							<li>Selecting this action redirects the user to the Rating page, where they can add a star rating, optionally confirm their name and meal name, and write a text review before submitting.​</li>
-						</ul>
-
-						<h5>Showing existing rating on Item Delivered page</h5>
-						<ul>
-							<li>If the user has already submitted a rating and review for the order, the Item Delivered page shows the existing star rating and review text directly under the order details.​</li>
-							<li>This makes it clear that feedback has been recorded and lets the user quickly recall what they thought of that particular meal.​</li>
-						</ul>
-
-						<h5>Updating an existing rating</h5>
-						<ul>
-							<li>Alongside the displayed rating, an action such as “Edit Rating” or an editable star control is shown so that the user can update their feedback if their opinion changes.​</li>
-							<li>Clicking this action takes the user back to the Rating page, with their previous rating and review pre‑filled in the form, so they only need to adjust the parts they want to change.​</li>
-							<li>After the user resubmits the updated rating, the revised stars and review text are saved and immediately reflected again on the Item Delivered page and, where relevant, in the Customer Reviews area.</li>
+							<li>Breakfast</li>
+							<li>Lunch</li>
+							<li>Dinner</li>
+							<li>Snacks</li>
+							<li>Full-Day Meal</li>
 
 						</ul>
-					</div>
-				</li>
-			</ol>
+						<p>Users can select the desired meal type to narrow down results.</p>
 
-		</div>
+						<hr />
+					</li>
+					<li>
+						<h5>Portion Size & Spice Level</h5>
+						<ul>
+							<h6>Portion Size:</h6>
+							<ul>
+								<li>Small</li>
+								<li>Medium</li>
+								<li>Large</li>
+							</ul>
+							<p>Users can select one portion size.</p>
+
+							<h6>Spice Level:</h6>
+							<ul>
+								<li>Mild Spice</li>
+								<li>Medium Spice</li>
+								<li>Extra Spicy</li>
+							</ul>
+							<p>Users can choose their preferred spice level.</p>
+						</ul>
+
+						<hr />
+					</li>
+					<li>
+						<h5>Health & Nutrition</h5>
+						<ul>
+							<li>Low-Calorie</li>
+							<li>High-Protein</li>
+							<li>Keto / Low-Carb</li>
+							<li>Balanced Diet</li>
+							<li>Sugar-Free</li>
+							<li>Low Sodium</li>
+						</ul>
+						<p>If Low-Calorie or High-Protein is selected, the application will prompt the user to enter the required quantity or measurement. <br />For other options, users can directly select their preference.</p>
+
+						<hr />
+					</li>
+					<li>
+						<h5>Allergens</h5>
+						<ul>
+							<li>Dairy-Free</li>
+							<li>Nut-Free</li>
+							<li>Gluten-Free</li>
+							<li>Soy-Free</li>
+							<li>Egg-Free</li>
+							<li>Other</li>
+						</ul>
+						<p>If Other is selected, users can manually enter their allergens in the input field. Otherwise, they can choose from the predefined options.</p>
+
+						<hr />
+
+					</li>
+					<li>
+						<h5>Specials</h5>
+						<ul>
+							<li>Popular Meals</li>
+							<li>Top-Rated</li>
+							<li>Chef’s Special</li>
+							<li>Seasonal / Festival Specials</li>
+							<li>Family Packs</li>
+						</ul>
+						<p>This section highlights curated and promotional meal options.</p>
+
+						<hr />
+
+					</li>
+					<li>
+						<h5>Price Range</h5>
+						<ul>
+							<li>Under ₹100</li>
+							<li>₹100 – ₹200</li>
+							<li>₹200 – ₹300</li>
+							<li>₹300+</li>
+
+						</ul>
+						<p>Users can select a price range based on their budget.</p>
+
+						<hr />
+					</li>
+					<li>
+						<h5>Ratings & Reviews</h5>
+						<ul>
+							<li>4 & Above</li>
+							<li>Top-Rated by Users</li>
+						</ul>
+						<p>Users can filter meals based on ratings and user reviews.</p>
+					</li>
+				</ol>
+			</div>
+		</li>
+
+		<hr>
+
+
+		<li>
+			<h4>Search and Filters</h4>
+			<p>Users can search for food items across the application wherever they are available. The Filters feature allows users to customise their food preferences for more accurate and personalised recommendations.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Hero Section</h4>
+			<p>In this section, users will see featured hero items displayed as a sliding banner at the top of the home screen. This section is used to highlight specific food items, special offers, or promotional dishes.</p>
+			<p>The hero section helps capture user attention immediately and showcases popular, newly launched, or recommended meals. Each slide may include high-quality images, brief descriptions, pricing details, and call-to-action buttons such as Order Now or View Details, encouraging users to explore and place orders quickly.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Our Featured Section</h4>
+			<p>Our Featured section highlights the most popular, trending, and carefully curated food items available on Shidori. These selections are chosen based on customer preferences, seasonal demand, and chef recommendations.</p>
+			<p>This section helps users quickly discover top-quality meals without spending time searching, making the ordering experience faster and more engaging.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Regional Cuisines</h4>
+			<p>The Regional Cuisines section allows users to explore authentic dishes from various regions. Each cuisine reflects traditional cooking styles, local ingredients, and regional flavours. This section is ideal for users who enjoy home-style meals or want to experience the taste of different regions in one platform.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>International Cuisines</h4>
+			<p>The International Cuisines section brings a wide variety of global flavours to the user’s plate. From Asian and European to Middle Eastern, Italian, Chinese, Mexican, Continental, and more, this section offers a diverse selection of international dishes. It caters to users looking for variety, new tastes, or familiar favourites prepared with authentic recipes, allowing them to enjoy global cuisines all in one place.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Special Cuisines</h4>
+			<p>The Special Cuisines section is designed to showcase unique and exclusive food categories. This may include diet-focused meals, festive specials, limited-time offerings, chef’s signature dishes, or themed menus. It helps users discover special meals that are not part of the regular menu, adding excitement to the overall food browsing experience.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Recommendation</h4>
+			<p>The Recommendation section provides personalised food suggestions tailored to each user. Recommendations are generated based on factors such as dietary preferences, previous orders, browsing behaviour, location, ratings, and popular trends.</p>
+			<p>This section enhances user satisfaction by helping them find relevant and appealing meals effortlessly.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Why Choose Shidori Section</h4>
+			<p>This section highlights the key benefits and value proposition of the Shidori application. It showcases quality food prepared with hygienic standards, a wide variety of cuisines, personalised recommendations, transparent and affordable pricing, and reliable delivery services. This section helps build user trust and confidence by clearly explaining why Shidori is the preferred choice for discovering and ordering food.</p>
+		</li>
+
+		<hr>
+
+		<li>
+			<h4>Footer</h4>
+			<p>In this section, the app will display links to download the application from the Google Play Store and Apple App Store. Below that, it will include relevant links such as Privacy Policy, Contact & Help Support, Company Information, About Us, and other important resources.</p>
+			<p>The footer will also feature social media handles for platforms like Facebook, Instagram, Twitter, and LinkedIn, allowing users to connect with the brand. Additional links and resources may be included as needed to provide easy access to important information and support.</p>
+		</li>
+	</ol>
+
+
+
+	<hr>
+
+	<h2>Regional Menu Page</h2>
+	<p>The Regional Menu page will showcase a list of cuisines from all Indian states, allowing users to explore traditional and popular dishes from regions such as Andhra Pradesh, Arunachal Pradesh, Assam, Bihar, Chhattisgarh, Goa, Gujarat, Haryana, Himachal Pradesh, Jharkhand, Karnataka, Kerala, Madhya Pradesh, Maharashtra, and others. Each food item will be displayed with the dish name, high-quality image, a brief description, its associated state, a wishlist button, ratings, price, and an Add to Cart button for easy ordering.​</p>
+	<p>Users will also see navigation buttons for all available states at the top of the page. Clicking on a state button (for example, Andhra Pradesh, Gujarat, Kerala, or Maharashtra) will take the user to a dedicated state-specific menu page, where the complete list of dishes from that state is displayed, making it easy to explore each region’s specialities in depth.</p>
+
+	<hr>
+
+	<h2>Recommendation Page</h2>
+	<p>The Recommendation Page provides users with personalised food suggestions based on their preferences, previous orders, browsing history, location, user rating and popular trends. This page helps users quickly discover meals they are most likely to enjoy without manually searching through menus.</p>
+	<p>Each recommended food item will be displayed with the dish name, high-quality image, a brief description, a wishlist button, price, ratings, and an Add to Cart button for easy ordering. High-quality images of the dishes will be included to enhance visual appeal and make it easier for users to select their meals.</p>
+	<p>This layout ensures that users can seamlessly explore, compare, and order personalised meal recommendations in a visually engaging and intuitive interface. By combining intelligent suggestions, ratings, and easy ordering options, the Recommendation Page enhances the overall user experience and encourages repeat engagement.</p>
+
+	<hr>
+
+	<h2>Wishlist Page</h2>
+	<p>The Wishlist Page allows users to save their favourite food items for future orders. Users can easily add dishes to their wishlist from any page, such as the Regional Menu, International Cuisines, Special Cuisines, or Recommendation Page.</p>
+	<p>Each item in the wishlist will display the dish name, high-quality image, brief description, price, ratings, and an Add to Cart button, enabling users to quickly move items from their wishlist to their order. High-quality images of the dishes will also be displayed to make browsing more visually appealing.</p>
+	<p>This page enhances user convenience by providing a personalised space to keep track of favourite meals, plan future orders, and ensure a faster and more enjoyable ordering experience.</p>
+
+	<hr>
+
+	<h2>International Menu Page</h2>
+	<p>The International Menu page will display a vertical list of featured cuisines such as Italian, Chinese, Thai, Japanese, Korean, Middle Eastern, Mexican, American, French, and Mediterranean, where each cuisine block shows a horizontal preview list of a few popular dishes and an arrow or “View All” action to explore more items from that cuisine. Each dish card in the preview will include the dish name, high-quality image, a short description, a wishlist button, ratings, price, and an Add to Cart button for quick ordering.</p>
+	<p>At the top of the page, users will see a cuisine navigation bar with buttons for each cuisine type (Italian, Chinese, Thai, Japanese, Korean, Middle Eastern, Mexican, American, French, Mediterranean, etc.). Clicking any of these buttons will navigate the user to a dedicated cuisine-specific page (for example, an Italian Menu page or Japanese Menu page) where the full list of dishes for that cuisine is displayed with filters, sorting, and complete details for each item.</p>
+
+	<hr>
+
+	<h2>Special Cuisine Menu Page</h2>
+	<p>The Special Cuisine Menu page will highlight curated food categories such as Street Food, Biryani Special, Vegan Cuisine, Healthy Food, Dessert, and Fusion Cuisine, allowing users to quickly discover dishes based on mood, lifestyle, or craving rather than geography. Each food item will be displayed with the dish name, high-quality image, a short description, category tag (for example, “Street Food” or “Vegan”), ratings, price, an Add to Cart button, and a Wishlist option so users can save their favourite items for later.</p>
+	<p>At the top of the page, users will see navigation buttons for each special cuisine category: Street Food, Biryani Special, Vegan Cuisine, Healthy Food, Dessert, and Fusion Cuisine. Clicking on any category button will take the user to a dedicated category-specific menu page that lists all dishes under that theme, making it easy to browse only street food favourites, indulgent biryanis, plant-based options, healthier choices, desserts, or creative fusion items.</p>
+
+	<hr>
+
+	<h2>Street Food Menu Page</h2>
+	<p>The Street Food Menu page will bring together a wide range of iconic Indian street snacks in one dedicated experience, focusing on quick, flavour-packed items that are ideal for snacking, sharing, and casual cravings. The menu will feature popular favourites such as pani puri, aloo tikki, samosa, kathi roll, vada pav, chole kulche, dabeli, momos, bhel puri, chicken 65, kebabs, kulfi falooda, mirchi bhaji, egg roll, dahi puri, and many more similar street-style dishes.​</p>
+	<p>Each food item will be displayed with the dish name and a short, tempting description that highlights its key textures and flavours, such as crispy, spicy, tangy, or creamy, helping users quickly understand what they are ordering. The item card will also display ratings, name, price, high-quality image, an “Add to Cart” button for instant ordering, and a Wishlist option, allowing users to mark and revisit their favourite street food items whenever they like. All street snacks will be grouped under a single “Street Food” category, providing a simple and focused browsing experience.</p>
+
+	<hr>
+
+	<h2>Biryani Special Menu Page</h2>
+	<p>The Biryani Special Menu page will bring together a wide range of biryani-focused dishes in one dedicated space, highlighting different proteins, spice levels, and regional styles to satisfy serious biryani cravings. The menu will feature signature varieties such as Hyderabadi biryani, Lucknawi (Awadhi) biryani, Kolkata biryani, Malabar biryani, Ambur biryani, Dindigul biryani, Sindhi biryani, Bombay biryani, Kashmiri biryani, Tehari biryani, as well as protein-based options like paneer biryani, vegetable biryani, egg biryani, prawn biryani, fish biryani, and more.</p>
+	<p>Each food item will be displayed with the biryani name and a rich, high-quality image, tempting description that highlights the quality of the rice, the cooking method (such as slow-cooked dum), aroma, key ingredients, and dedicated aroma and spice level tags in the description (for example, “fragrant & mild”, “aromatic & medium spicy”, or “bold & spicy”), so users clearly understand the flavour profile before ordering. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite biryanis and easily reorder them later, keeping everything neatly grouped under the “Biryani Special” category.</p>
+
+
+	<hr>
+
+	<h2>Vegan Cuisine Menu Page</h2>
+	<p>The Vegan Cuisine Menu page will bring together a wide range of 100% plant-based dishes in one dedicated space, focusing on flavourful meals made without any meat or eggs, so users can explore satisfying vegan options with confidence. The menu will feature items such as vegan biryani bowls, jackfruit tacos, vegan sushi, chickpea and lentil soups, vegan pizzas, stuffed bell peppers, vegan pasta primavera, falafel wraps, vegan burgers, vegetable pulao, tinda masala, rajma masala, vegetable korma, dal tadka, and many more vegan-friendly dishes.</p>
+	<p>Each food item will be displayed with the dish name and a rich, high-quality image, tempting description that highlights the key vegetables, plant proteins, grains, textures, and flavours, clearly indicating that every option is completely vegan. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite vegan dishes and easily reorder them later, keeping everything neatly grouped under the “Vegan Cuisine” category.</p>
+
+
+	<hr>
+
+	<h2>Healthy Food Menu Page</h2>
+	<p>The Healthy Food Menu page will bring together a variety of nutrient-dense, lighter meals in one dedicated space, focusing on dishes that balance lean proteins, healthy fats, whole grains, and fresh vegetables for everyday wellness-focused eating. The menu will feature options such as quinoa salad, grilled salmon, oats porridge, vegetable stir-fry, Greek salad, brown rice and lentils, avocado toast, chia seed pudding, roasted sweet potatoes, green smoothies, mixed bean salad, steamed broccoli, baked falafel, zoodle pasta, cabbage soup, and many more health-conscious dishes.</p>
+	<p>Each food item will be displayed with the dish name and a rich, high-quality image, along with a clear, tempting description that highlights key ingredients, nutritional benefits (for example, high protein, rich in fibre, or whole-grain based), and lighter cooking methods such as grilling, baking, steaming, or minimal-oil sautéing. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite healthy dishes and easily reorder them later, keeping everything neatly grouped under the “Healthy Food” category.</p>
+
+	<hr>
+
+	<h2>Dessert Menu Page</h2>
+	<p>The Dessert Menu page will bring together a wide range of indulgent Indian and international sweets in one dedicated space, offering guests the perfect sweet ending to their meal. It will feature favourites such as chocolate brownies, cheesecakes, gulab jamun, rasgulla, tiramisu, ice cream sundaes, mousses, apple pies, macarons, donuts, kheer, baklava, cupcakes, panna cotta, ladoos, and many more decadent desserts.</p>
+	<p>Each dessert item will be displayed with the dessert name and a rich, high-quality image, along with a tempting description that highlights textures and flavours such as warm and fudgy, creamy and tangy, syrup-soaked, crunchy, or nutty, helping users quickly find the treat that suits their mood. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite desserts and easily reorder them later, keeping everything neatly grouped under the “Dessert” category.</p>
+
+	<hr>
+
+	<h2>Fusion Cuisine Menu Page</h2>
+	<p>The Fusion Cuisine Menu page will bring together creative cross-cultural dishes in one dedicated space, combining flavours, ingredients, and techniques from different cuisines to offer bold, unexpected taste experiences. The menu will feature playful combinations such as tandoori pizza, butter chicken pasta, sushi burritos, paneer tacos, noodle samosas, kimchi quesadillas, Manchurian pizza, masala mac and cheese, chilli garlic momos, biryani arancini, idli burgers, wasabi hummus, paneer sushi rolls, falafel tacos, Thai curry pasta, and many more innovative fusion creations.​</p>
+	<p>Each food item will be displayed with the dish name and a rich, high-quality image, along with a tempting description that clearly explains the fusion elements, highlighting which cuisines are being blended (for example, “Indian × Italian” or “Japanese × Mexican”) and what key flavours and textures to expect. The item card will also show ratings and price, along with an Add to Cart button for quick ordering and a Wishlist option so users can save their favourite fusion dishes and easily reorder them later, keeping everything neatly grouped under the “Fusion Cuisine” category.</p>
+
+	<hr>
+
+	<h2>Menu Description Page</h2>
+	<p>The Menu Description page is a dedicated detail view for a single dish, giving users everything they need to understand the item before adding it to their order. At the top, a large, high‑quality food image visually showcases the dish, followed by the dish name displayed prominently with its overall star rating beside it to indicate popularity and quality at a glance. A rich text description explains the flavour profile, texture, cooking style, and ideal pairings so users know exactly what kind of experience to expect from the dish.</p>
+	<p>Just below the description, the page provides simple ordering controls: a quantity selector with minus and plus buttons to choose how many items the user wants, and a bold ADD button to place that selected quantity into the cart or place a single item into the cart. This allows users to focus on a single dish, adjust how much they want, and add it directly without leaving the page. This page keeps all key purchase information—image, name, description, rating, quantity, and add action—grouped in one clear block.</p>
+	<p>Further down, the page highlights social proof and feedback. A rating summary section visualises how many customers have given 5, 4, 3, 2, or 1 stars using horizontal bars, along with a central average rating value and stars, so users can quickly assess overall satisfaction. Below this, a grid of customer review cards showcases real experiences: each card includes a profile photo, star rating, short review comment, and reviewer name. Together, these elements turn the Menu Description page into a focused, trustworthy detail screen where users can explore, evaluate, and confidently decide whether to add the dish to their order.</p>
+
+
+
+	<hr>
+
+	<h2>Add to Cart Page</h2>
+	<p>The Add to Cart (Shopping Bag) page is the main review and confirmation step before checkout. It lets users see all items they’ve selected, adjust quantities, apply coupons, choose the delivery address, optionally add recommended items or a donation, and then proceed to payment in a single, focused flow.</p>
+	<div class="ms-4">
+
+		<h4>Page purpose and layout</h4>
+		<ul>
+			<li>
+				<p>The page is divided into three vertical zones:</p>
+				<ol>
+					<li>Cart Items Area on the left (all dishes in the cart).</li>
+					<li>Order Summary Sidebar on the right (coupon, address, totals, checkout).</li>
+					<li>Donation & Policy Section at the bottom (optional donation and detailed cancellation policy).​</li>
+				</ol>
+
+			</li>
+			<li>The top of the page shows the Shopping Bag title, the item count, and a Clear Cart button to reset the cart in one action.​</li>
+		</ul>
+
+		<h4>Cart items workflow</h4>
+		<ul>
+			<li>Each cart line shows the dish image, name, description, star rating, unit price, quantity control, and total, so users can understand and manage every item easily.​</li>
+			<li>The initial quantity comes from wherever the user last added/updated that item (menu page or detail page).</li>
+			<li>
+				<p>Users can:</p>
+				<ul>
+					<li>Increase quantity with the plus button, which updates the line total and overall cart total in real time.</li>
+					<li>Decrease quantity with the minus button; if the quantity reaches zero, the item is removed from the cart.</li>
+				</ul>
+			</li>
+			<li>Any change in quantity immediately updates the cart item count and the Cart Total / Total figures in the sidebar, keeping pricing transparent.​</li>
+		</ul>
+
+
+		<h4>Recommendations / Add more items</h4>
+		<ul>
+			<li>Below the main list cart items, a strip shows recommended dishes (e.g., Butter Naan, another curry), each with an image, name, short description, rating, price, and an “+ Add” button.</li>
+			<li>Clicking “+ Add” adds that item to the cart with a default quantity of 1, updates totals, and visually confirms the addition (for example, button state change or toast), allowing quick upsell without leaving the cart.​</li>
+		</ul>
+
+
+		<h4>Coupon, address and totals workflow</h4>
+		<ul>
+			<li>
+				<p>In the right sidebar, the Coupon Code panel lets users enter a code and tap Apply.</p>
+				<ul>
+					<li>On valid codes, the Discount value and Total are recalculated and updated; an error state appears for invalid/expired codes.​</li>
+				</ul>
+			</li>
+
+			<li>
+				<p>The Deliver block shows the currently selected address (name, address, phone) and a navigation arrow.</p>
+				<ul>
+					<li>Tapping it opens the address management flow, where users can change or add addresses; when they return, the selected address is reflected here.​</li>
+				</ul>
+			</li>
+
+
+			<li>
+				<p>The Cart Total panel displays a breakdown:</p>
+				<ul>
+					<li>Cart total (sum of item line totals).</li>
+					<li>Delivery charge.</li>
+					<li>Discount (from coupons/offers).</li>
+					<li>Total (final payable amount).</li>
+				</ul>
+			</li>
+
+			<li>The Checkout button is the primary call‑to‑action, moving the user from this review page to the checkout/payment flow once they are satisfied with items, address, and totals.​</li>
+		</ul>
 
 	</div>
+	<p>This information helps users feel secure and informed about their purchase, making it easier for them to complete the order without hesitation.</p>
 
+	<hr />
+
+
+	<h2>Coupon Page & Redeem Pop-up</h2>
+	<p>The Coupon List page displays all available offers in a clean, card-based grid, allowing users to quickly browse and select the best deal for their order. Each coupon appears as a colourful card with the coupon title at the top (for example, WELCOME50, FREEMEAL, WEEKLY20), the internal code repeated in the lower section, a one-line benefit description (such as “Get 50% off on your first order” or “Free delivery on orders above ₹299”), and an expiry date so users know how long the offer is valid. A small “Text” label in the corner indicates the type of coupon, maintaining a consistent visual format across all cards.</p>
+	<p>By scrolling the grid, users can see different categories of offers like first-order discounts, referral rewards, zero-fee delivery, healthy-meal promos, festival specials, and student or loyalty benefits, each distinguished by its own background colour. This makes it easy to visually scan and pick an offer that matches their situation (new user, subscriber, student, etc.). When a user taps a card, the system opens a detailed coupon pop-up overlay focused on that single offer and ready for redemption.</p>
+
+	<div class="ms-4">
+		<h4>Coupon Detail Pop-up</h4>
+		<p>The Coupon Detail Pop-up is an overlay that appears centred on top of the coupon list when a coupon is selected, giving a focused, full-size view of one specific offer. At the top, it shows the partner or brand logo (for example, GPay) and a short headline line describing the benefit in natural language, such as “20% cashback on all rides globally via Standard Chartered credit card,” so users immediately understand what they get. Below a dotted separator, the pop-up highlights the Coupon Code in large text (for example, STANDARD 20), making it easy to read or copy, and provides a prominent REDEEM NOW button as the primary call-to-action for applying or using the offer.</p>
+		<p>At the bottom of the card, a validity line (for example, “Valid till 30th May 2026”) clearly communicates the end date so users know whether the coupon is still usable. Overall, the combination of the Coupon List page and Coupon Detail Pop-up gives users a simple flow: browse all deals, tap one to see full details, then copy or redeem the code directly from the highlighted pop-up.</p>
+	</div>
+
+
+	<hr />
+
+	<h2>Checkout Page</h2>
+	<p>Checkout page is the final confirmation and payment step after the Shopping Bag, where users provide their shipping details, enter payment information, review the final order summary, optionally add a donation, and read key policy notes before placing the order. The layout is split into a large form area on the left for address, payment methods/card details and a compact order summary column on the right, with donation and policy information displayed clearly at the bottom, so everything needed to complete the purchase is visible on a single screen.</p>
+	<div class="ms-4">
+		<h4>Page purpose and layout</h4>
+		<p>The page shows a Back button link so users can return to the previous step if they want to change items in the cart, while a short note above the form reminds them to fill in details carefully to avoid delays. The main left section contains the Shipping/Delivery Address and Payment Information area, including card type/brand indicators, name on card, card number, expiration date, and CVV inputs, followed by the primary button (Apply/Pay) for submitting payment details. On the right, the Order Summary card lists each item (with quantity, dish name, and line price), then shows Delivery, Discount, Total, Tax, and final Order Total, along with a highlighted savings message that tells the user how much they are saving on this order</p>
+
+		<h4>Coupon, notes, Cancellation Policy and confirmation areas</h4>
+		<p>A Coupon Code field with an Apply button lets users enter a discount code directly from the checkout page, while a Description (Optional) text box allows them to add special delivery notes or instructions for the cloud kitchen or courier. Below the donation banner encourages users to “Donate to feeding India” with a fixed micro-donation amount (e.g., Rs 4) and an Add to Cart button, so they can quickly include a charitable contribution as part of the same transaction. By clicking on the Add to cart button, the system will update this in the order summary.</p>
+		<p>The Cancellation Policy section explains how and when orders or subscriptions can be cancelled and how long refunds may take to process, and a final note at the bottom clarifies that prices are inclusive of taxes, meals are freshly prepared and delivered per schedule, and support contact details are available for any billing or payment issues.</p>
+	</div>
+
+	<hr />
+
+	<h2>Payment Page</h2>
+	<p class="red">// TODO: </p>
+
+	<hr />
+
+	<h2>Order Tracking Page</h2>
+	<p>The Tracking Order page shows the live status of a single order after checkout and payment are completed, helping users understand what stage their order is in, when it is expected to arrive, and who is delivering it. At the top, a compact summary bar displays key details such as order placement time, total amount, expected delivery time, and the order number so users can quickly confirm they are viewing the correct order. Just below, a clear status label (for example, “Order Status: Order Placed”) and an estimated delivery timeline reinforce the current state and timing of the order.</p>
+	<div class="ms-4">
+		<h4>Order status timeline and map</h4>
+		<p>A horizontal progress tracker visually represents the journey of the order across milestones like “Preparing order”, “At Pickup Point”, “Order Picked”, “On the way”, and “Delivered”, with completed steps highlighted and upcoming steps greyed out. This lets users instantly see how far along their order is and what will happen next. Below this, a confirmation block with a check icon and a map view(for visual tracking) communicates that the order has been accepted and is being prepared, along with a short confirmation message and a note that a confirmation email has been sent.</p>
+
+		<h4>Delivery partner and customer information</h4>
+		<p>A dedicated section introduces the delivery partner by name (for example, “Rahul is your Delivery Partner”) and includes a brief helper text along with a call icon so users understand they can tap to contact the rider for quick updates. The Customer Information panel consolidates customer details, billing address, and payment method (such as “Credit Card ending with 4242”), reassuring users that their order is tied to the correct profile, address, and payment source.</p>
+
+		<h4>Order summary panel</h4>
+		<p>On the right side, an Order Summary card recaps the items included in the order. It shows a thumbnail of the main dish (e.g., Baklava) with its description and price, followed by a list of all ordered items with quantities and line prices. And a cost breakdown presents Delivery, Discount, Total, Tax, and the final Order Total so users can verify that the charges match what they saw at checkout.</p>
+
+		<h4>Overall experience</h4>
+		<p>The status header, progress timeline, confirmation map, delivery partner info, customer details, and order summary make the tracking Order page a single place where users can see their confirmed order details, how far along it is, and know whom to contact if they need help, giving them clarity and reassurance while they wait for their delivery.</p>
+	</div>
+
+	<hr />
+
+	<h2>Order Delivery Page</h2>
+	<p>The Order Delivered page is the final state of the order-tracking flow, confirming that the user’s order has successfully reached its destination and capturing all important details in a receipt-style layout. At the top, the summary bar still shows when the order was placed, the total amount, promised delivery time, and the order number so users can easily cross‑check against earlier communication or support queries. The status label now reads “Order Status: Order Delivered”, and the horizontal timeline shows all stages—Preparing order, At Pickup Point, Order Picked, On the way, Delivered—as fully completed, giving a clear visual end to the journey.</p>
+	<div class="ms-4">
+		<h4>Delivery partner and confirmation section</h4>
+		<p>Below the tracker, a section reiterates “Rahul is your Delivery Partner” (or the relevant name) with helper text explaining that the user can contact the partner if there is any issue with the delivered order, accompanied by a call icon for quick access. Further down, a confirmation panel labelled “Your Order is Delivered” reinforces that the order is complete. This panel includes a short explanatory message that the order has been accepted and delivered, that a confirmation email has been sent, and that users can return to this page for any post‑delivery references, closing the loop </p>
+
+		<h4>Customer details and help</h4>
+		<p>Under the confirmation area, the Customer Information card summarises key identity and billing data used for this order: customer name, delivery/billing address, and the payment method. This acts as a final reference for the user and for support in case of disputes or questions. At the very bottom of the page, a “Need Help? Contact Us” link provides a direct path to customer support, ensuring that users know exactly where to go if something about the delivered order is incorrect or missing.</p>
+
+		<h4>Order summary and charges</h4>
+		<p>The Order Summary card mirrors what the user saw at checkout, but is now marked as delivered. It highlights one of the ordered dishes with an image, name, short description, and its price, followed by a full list of all items, each with quantity and line price. Below the list, a breakdown shows Delivery, Discount, intermediate Total, Tax, and the final Order Total, with a large “DELIVERED” stamp graphic overlaid on the summary area to visually signal that no further changes can be made to this order. This clear breakdown lets users verify that the final charge matches what they expected at the time of payment.</p>
+
+		<h4>Overall experience</h4>
+		<p>With its completed status bar, delivery‑partner reminder, delivery confirmation message, compact customer information, help link, and sealed order summary, the Order Delivered page functions both as a reassurance screen and as a permanent digital receipt. Users can revisit it from their order history to remember what they ordered, how much they paid, when it was delivered, and whom to contact if they ever need post‑delivery assistance.</p>
+	</div>
+
+	<hr />
+
+	<h2>Review pop-up (Post-Delivery Rating)</h2>
+	<p>The Review Pop-up appears as a centred overlay after an order has been marked delivered, inviting users to rate their experience while the delivery is still fresh in mind. At the top, a large green check icon and bold “Thank You!” message confirm that the food was delivered successfully, followed by a short line such as “You got your food delivered at Shidori” to clearly link the feedback request to the just-completed order. The pop-up asks two questions: “How would you rate your experience at Shidori?” and “How would you rate our Delivery Partner Shidori?”, each paired with a 5‑star rating control so users can separately evaluate the overall Shidori experience and the delivery partner’s performance.</p>
+	<p>Under the star ratings, a “Write your comment” text box lets users leave optional written feedback about food quality, packaging, punctuality, or delivery behaviour. At the bottom, a prominent Submit button sends the selected star ratings and comment, and a closing line explains that “Your ratings will help other privileged members in discovering better places,” reinforcing that their feedback benefits the whole community.</p>
+
+
+	<hr />
+
+	<h2>User Profile Page</h2>
+	<div class="ms-4">
+		<h4>Profile Page – overall description</h4>
+		<ul>
+			<li>The Profile page is the central place where users can view and manage their personal account information, preferences, and app settings.</li>
+			<li>At the top, a Wallet Money button gives quick access to the user’s in‑app wallet so they can view their current balance or add money for future orders.</li>
+			<li>A notification icon opens the notifications view, where users can see recent alerts related to orders, offers, and account updates.</li>
+			<li>On the right side of the header, the profile thumbnail shows the user’s avatar; tapping it allows them to change their profile photo.​</li>
+			<li>Just below the header, a Back link lets users return to the previous screen, typically the home or main menu.​</li>
+			<li>
+				<p>The main body of the page is split into two columns. On the left, a vertical navigation menu lists all profile-related sections:​</p>
+				<ul>
+					<li>Account Settings</li>
+					<li>Order History</li>
+					<li>Addresses</li>
+					<li>Help Center</li>
+					<li>Promocodes & Offerings</li>
+					<li>Subscription</li>
+					<li>Invite Friends</li>
+					<li>Privacy Policy</li>
+					<li>Logout</li>
+					<li>Delete Account</li>
+				</ul>
+			</li>
+			<li>On the right, a content area displays the details and controls for whichever menu item is currently selected.</li>
+			<li>When Account Settings is active, this panel shows the user’s basic profile information and notification preferences.​</li>
+		</ul>
+		<ol class="ol-h4">
+			<li>
+				<h4>Account Settings</h4>
+				<ul>
+					<li>When Account Settings is selected in the left menu, the right panel becomes the user’s personal profile editor.​</li>
+					<li>At the top of this panel, the user’s profile picture, full name, and email address are shown in a compact header so core identity information is always visible.​</li>
+					<li>The profile picture can be updated by tapping or clicking on it and selecting a new image from the device.​</li>
+					<li>Below this header, there are editable fields for Name, Email, Birthday, and Phone No. so users can keep their core account information up to date.​</li>
+					<li>Any changes saved here are used across orders, communications, and receipts.​</li>
+					<li>Inputs such as Birthday and Phone No. should use clear, specific formats (for example, a date picker and formatted phone field) to reduce errors.​</li>
+					<li>Further down, a Notifications block lets users manage how they receive updates from the app.​ A short helper line, such as “View and change your notification settings”, explains the purpose of this section.​</li>
+				</ul>
+			</li>
+
+			<li>
+				<h4>Order History</h4>
+				<ul>
+					<li>The Order History section is accessed from the left-side Profile menu and shows a list or grid of all orders that have already been delivered to the user.​</li>
+					<li>Each entry focuses on completed orders, so users can quickly review what they have previously ordered and how much they paid.​</li>
+				</ul>
+				<div class="ms-4">
+					<h5>Order cards in Order History</h5>
+					<ul>
+						<li>Every order is represented as a card containing key details such as Order ID, delivery date and time, main items, total quantity, and total price.​</li>
+						<li>Visual hierarchy (order number at the top, items and prices in the middle, total at the bottom) helps users scan multiple cards easily.​</li>
+						<li>Only orders with a Delivered or Completed status appear here, ensuring the list is clearly about past, fulfilled orders.​</li>
+					</ul>
+
+					<h5>Navigation to Item Delivered page</h5>
+					<ul>
+						<li>When the user clicks or taps any order card in Order History, the app opens the Item Delivered page for that specific order.​</li>
+						<li>The system passes the selected order’s ID to the Item Delivered view so that all details shown there (items, prices, and status) match the chosen card.​</li>
+					</ul>
+
+					<h5>Item Delivered page and rating entry</h5>
+					<ul>
+						<li>The Item Delivered page shows detailed information for that order: ordered items with images, quantities, individual prices, total amount, and a clear “Delivered” status.​</li>
+						<li>If the user has not yet rated this order, the page displays a prominent call‑to‑action (for example, “Rate this Order” or a star‑rating placeholder) that leads to the Rating page.​</li>
+						<li>Selecting this action redirects the user to the Rating page, where they can add a star rating, optionally confirm their name and meal name, and write a text review before submitting.​</li>
+					</ul>
+
+					<h5>Showing existing rating on Item Delivered page</h5>
+					<ul>
+						<li>If the user has already submitted a rating and review for the order, the Item Delivered page shows the existing star rating and review text directly under the order details.​</li>
+						<li>This makes it clear that feedback has been recorded and lets the user quickly recall what they thought of that particular meal.​</li>
+					</ul>
+
+					<h5>Updating an existing rating</h5>
+					<ul>
+						<li>Alongside the displayed rating, an action such as “Edit Rating” or an editable star control is shown so that the user can update their feedback if their opinion changes.​</li>
+						<li>Clicking this action takes the user back to the Rating page, with their previous rating and review pre‑filled in the form, so they only need to adjust the parts they want to change.​</li>
+						<li>After the user resubmits the updated rating, the revised stars and review text are saved and immediately reflected again on the Item Delivered page and, where relevant, in the Customer Reviews area.</li>
+
+					</ul>
+				</div>
+			</li>
+		</ol>
+
+	</div>
 
 </div>
