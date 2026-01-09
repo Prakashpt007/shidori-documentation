@@ -284,13 +284,13 @@ Response: {
   "message": "Success",
   "data": [
     {    
-			"city": "Pune"
-			"pincode": 411032
+			"city": "Pune",
+			"pincode": 411032,
 			"state": "Maharashtra"
     },
     {
-			"city": "Pune"
-			"pincode": 411030
+			"city": "Pune",
+			"pincode": 411030,
 			"state": "Maharashtra"
     }
   ]
