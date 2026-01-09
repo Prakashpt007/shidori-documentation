@@ -346,6 +346,7 @@ pre {
 	padding: 25.4mm !important;
 	box-sizing: border-box;
 	background-color: light-dark(#ffffff, rgb(255 255 255 / 5%));
+	box-shadow: 0 0 19px rgba(0, 0, 0, 0.102);
 	// color: #000;
 
 }
@@ -393,6 +394,7 @@ hr {
 		max-height: none;
 		background: #fff;
 		color: #000000;
+		box-shadow: none;
 	}
 
 	hr {

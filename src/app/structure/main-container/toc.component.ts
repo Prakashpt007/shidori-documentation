@@ -1,5 +1,14 @@
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnDestroy,
+	ViewChild,
+	effect,
+	inject,
+	signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, effect, signal, inject, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -15,47 +24,61 @@ interface HeadingNode {
 	standalone: true,
 	imports: [CommonModule],
 	templateUrl: 'toc.component.html',
-	styleUrl: './main-container.scss'
+	styleUrl: './main-container.scss',
 })
-export class TocComponent implements OnDestroy {
+export class TocComponent implements AfterViewInit, OnDestroy {
 	private router = inject(Router);
 
 	headings = signal<HeadingNode[]>([]);
 	activeId = signal<string | null>(null);
 
-	private readonly OFFSET_TOP = 25;
+	private readonly OFFSET_TOP = 80; // adjust to match your layout
+	private observer: IntersectionObserver | null = null;
+	private lastScrollTop = 0;
 
-	private routerEvents = toSignal(
-		this.router.events,
-		{ initialValue: null }
-	);
+	private routerEvents = toSignal(this.router.events, { initialValue: null });
+
+	@ViewChild('tocScroll', { static: false })
+	tocScrollRef?: ElementRef<HTMLElement>;
 
 	constructor() {
+		// Re-init TOC on route change and reset TOC scroll
 		effect(() => {
 			this.routerEvents();
-			setTimeout(() => this.initToc(), 300);
+			setTimeout(() => {
+				this.resetTocScroll();        // left sidebar TOC
+				this.resetPrintAreaScroll();  // ⬅️ right side content page
+				this.initToc();
+			}, 300);
 		});
 	}
 
-	ngAfterViewInit() {
+	ngAfterViewInit(): void {
 		this.initToc();
 	}
 
-	ngOnDestroy() {
-		const existing = (this as any).observer;
-		if (existing) existing.disconnect();
+	ngOnDestroy(): void {
+		this.cleanupObserver();
 	}
 
-	private initToc() {
+	private cleanupObserver(): void {
+		if (this.observer) {
+			this.observer.disconnect();
+			this.observer = null;
+		}
+	}
+
+	private resetTocScroll(): void {
+		if (this.tocScrollRef?.nativeElement) {
+			this.tocScrollRef.nativeElement.scrollTop = 0;
+		}
+	}
+
+	private initToc(): void {
 		const root = document.querySelector('.doc-content') as HTMLElement | null;
 
-		const existing = (this as any).observer as IntersectionObserver | undefined;
-		if (existing) {
-			existing.disconnect();
-			(this as any).observer = null;
-		}
+		this.cleanupObserver();
 
-		// ❌ No container → clear and hide TOC
 		if (!root) {
 			this.headings.set([]);
 			this.activeId.set(null);
@@ -88,7 +111,7 @@ export class TocComponent implements OnDestroy {
 
 		const tree = this.buildHierarchy(flat);
 		this.headings.set(tree);
-		this.activeId.set(tree[0]?.id ?? null); // optional: default to first
+		this.activeId.set(tree[0]?.id ?? null);
 
 		this.initIntersectionObserver(Array.from(nodeList));
 	}
@@ -126,74 +149,132 @@ export class TocComponent implements OnDestroy {
 		const el = document.getElementById(id);
 		if (!el) return;
 
-		// ✅ Target YOUR scroll container
-		const scrollContainer = document.querySelector('.printArea') as HTMLElement;
+		const scrollContainer = document.querySelector('.printArea') as HTMLElement | null;
 		if (!scrollContainer) return;
 
 		const rect = el.getBoundingClientRect();
 		const containerRect = scrollContainer.getBoundingClientRect();
-
-		// Calculate relative to container
 		const relativeTop = rect.top - containerRect.top;
 		const targetScroll = scrollContainer.scrollTop + relativeTop - this.OFFSET_TOP;
 
 		scrollContainer.scrollTo({
 			top: targetScroll,
-			behavior: 'smooth'
+			behavior: 'smooth',
 		});
 	}
 
+	private initIntersectionObserver(nodeList: HTMLElement[]): void {
+		this.cleanupObserver();
 
-	private initIntersectionObserver(nodeList: HTMLElement[]) {
-		const existing = (this as any).observer;
-		if (existing) existing.disconnect();
+		const scrollContainer = document.querySelector('.printArea') as HTMLElement | null;
+		const container = scrollContainer ?? document.documentElement;
 
-
-		console.log(`-${this.OFFSET_TOP}px 0px -50% 0px`);
-
+		// Track scroll direction
+		container.addEventListener(
+			'scroll',
+			() => {
+				const currentTop = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
+				this.lastScrollTop = currentTop;
+			},
+			{ passive: true }
+		);
 
 		const observer = new IntersectionObserver(
 			(entries) => {
-				let activeId: string | null = null;
+				const currentTop = scrollContainer ? scrollContainer.scrollTop : window.scrollY;
+				const scrollingDown = currentTop >= this.lastScrollTop;
+				this.lastScrollTop = currentTop;
 
-				// Primary: heading top within 0-80px range
-				entries.forEach(entry => {
+				let bestId: string | null = null;
+				let bestDist = Infinity;
+
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return;
+
 					const target = entry.target as HTMLElement;
-					const rect = target.getBoundingClientRect();
+					const rect = entry.boundingClientRect;
+					const dist = Math.abs(rect.top - this.OFFSET_TOP);
 
-					if (rect.top >= 0 && rect.top <= this.OFFSET_TOP) {
-						activeId = target.id;
-						return;
+					if (dist < bestDist) {
+						bestDist = dist;
+						bestId = target.id;
 					}
 				});
 
-				// Fallback: closest heading just below 80px
-				if (!activeId) {
-					let closestId: string | null = null;
-					let minDist = Infinity;
+				if (!bestId) {
+					if (scrollingDown) {
+						let lastAbove: any | null = null;
 
-					entries.forEach(entry => {
-						const target = entry.target as HTMLElement;
-						const rect = entry.boundingClientRect;
-						const dist = Math.abs(rect.top - this.OFFSET_TOP);
-						if (rect.top > this.OFFSET_TOP && dist < minDist) {
-							minDist = dist;
-							closestId = target.id;
-						}
-					});
-					activeId = closestId;
+						nodeList.forEach((h) => {
+							const rect = h.getBoundingClientRect();
+							if (rect.top <= this.OFFSET_TOP) {
+								if (!lastAbove || rect.top > lastAbove.top) {
+									lastAbove = { id: h.id, top: rect.top };
+								}
+							}
+						});
+
+						bestId = lastAbove?.id ?? this.activeId();
+					} else {
+						let firstBelow: any | null = null;
+
+						nodeList.forEach((h) => {
+							const rect = h.getBoundingClientRect();
+							if (rect.top > this.OFFSET_TOP) {
+								if (!firstBelow || rect.top < firstBelow.top) {
+									firstBelow = { id: h.id, top: rect.top };
+								}
+							}
+						});
+
+						bestId = firstBelow?.id ?? this.activeId();
+					}
 				}
 
-				this.activeId.set(activeId);
+				if (bestId && bestId !== this.activeId()) {
+					this.activeId.set(bestId);
+					this.scrollTocToActive();
+				}
 			},
 			{
-				root: null,
-				rootMargin: `-${this.OFFSET_TOP}px 0px -50% 0px`,
-				threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+				root: scrollContainer ?? null,              // 👈 use printArea when available
+				rootMargin: `-${this.OFFSET_TOP}px 0px -60% 0px`,
+				threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0],
 			}
 		);
 
-		nodeList.forEach(h => observer.observe(h));
-		(this as any).observer = observer;
+		nodeList.forEach((h) => observer.observe(h));
+		this.observer = observer;
+	}
+
+
+	private scrollTocToActive(): void {
+		if (!this.tocScrollRef?.nativeElement) return;
+
+		const container = this.tocScrollRef.nativeElement;
+		const activeId = this.activeId();
+		if (!activeId) return;
+
+		const activeLink = container.querySelector<HTMLAnchorElement>(
+			`a[data-id="${activeId}"]`
+		);
+		if (!activeLink) return;
+
+		const linkRect = activeLink.getBoundingClientRect();
+		const contRect = container.getBoundingClientRect();
+
+		// ensure active link is visible inside TOC container
+		if (linkRect.top < contRect.top) {
+			container.scrollTop += linkRect.top - contRect.top - 10;
+		} else if (linkRect.bottom > contRect.bottom) {
+			container.scrollTop += linkRect.bottom - contRect.bottom + 10;
+		}
+	}
+
+	private resetPrintAreaScroll(): void {
+		const scrollContainer = document.querySelector('.printArea') as HTMLElement | null;
+		if (scrollContainer) {
+			scrollContainer.scrollTop = 0;
+		}
 	}
 }
